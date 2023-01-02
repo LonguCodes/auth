@@ -6,7 +6,7 @@ on:
     paths:
       - 'apps/**/src/**'
       - 'libs/**/src/**'
-      -
+      - '.github/workflows/*'
 jobs:
   setup-build-publish-deploy:
     name: Setup, Build, Publish
@@ -21,7 +21,7 @@ jobs:
       - name: Setup NX workspace SHAs
         uses: nrwl/nx-set-shas@v3
         with:
-          main-branch-name: develop
+          main-branch-name: master
 
       - name: Cache node modules
         uses: actions/cache@v3
