@@ -1,0 +1,93 @@
+{
+  "name": "auth",
+  "sourceRoot": "apps/auth/src",
+  "projectType": "application",
+  "targets": {
+    "container": {
+      "executor": "@nx-tools/nx-container:build",
+      "options": {
+        "push": true,
+        "pull": true,
+        "tags": [
+          "longucodes/auth:latest"
+        ],
+        "cache-from": [
+          "longucodes/auth:latest"
+        ],
+        "build-args": [
+          "GITHUB_SHA=$GITHUB_SHA",
+          "GITHUB_REF=$GITHUB_REF",
+          "ENV_CFG=$ENVIRONMENT"
+        ],
+        "platforms": ["linux/amd64"],
+        "file": "apps/auth/Dockerfile"
+      }
+    },
+    "build": {
+      "executor": "@nrwl/node:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/auth",
+        "main": "apps/auth/src/main.ts",
+        "tsConfig": "apps/auth/tsconfig.app.json",
+        "assets": [],
+        "fileReplacements": [
+          {
+            "replace": "apps/auth/src/config/entities.config.ts",
+            "with": "apps/auth/src/config/entities.config.webpack.ts"
+          }
+        ]
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/node:node",
+      "options": {
+        "buildTarget": "auth:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/auth/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/apps/auth"],
+      "options": {
+        "jestConfig": "apps/auth/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "migration:create": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx ts-node -P tsconfig.app.json -r tsconfig-paths/register $(which typeorm) migration:create",
+        "cwd": "apps/auth"
+      }
+    },
+    "migration:run": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx ts-node -P tsconfig.app.json -r tsconfig-paths/register $(which typeorm) migration:run -d ormconfig.ts",
+        "cwd": "apps/auth"
+      }
+    },
+    "migration:revert": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx ts-node -P tsconfig.app.json -r tsconfig-paths/register $(which typeorm) migration:revert -d ormconfig.ts",
+        "cwd": "apps/auth"
+      }
+    }
+  },
+  "tags": []
+}

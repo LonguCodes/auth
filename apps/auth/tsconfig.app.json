@@ -1,0 +1,18 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../dist/out-tsc",
+    "module": "commonjs",
+    "types": ["node"],
+    "emitDecoratorMetadata": true,
+    "target": "es2015",
+    "resolveJsonModule": true
+  },
+  "exclude": ["**/*.spec.ts", "**/*.test.ts"],
+  "include": [
+    "**/*.ts",
+    "../../libs/promise/src/types.ts",
+    "../../node_modules/.pnpm/@types+webpack-env@1.16.4/node_modules/@types/webpack-env/index.d.ts",
+    "../../node_modules/webpack/module.d.ts"
+  ]
+}

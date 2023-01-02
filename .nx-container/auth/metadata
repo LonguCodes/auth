@@ -1,0 +1,26 @@
+{
+  "containerimage.buildinfo": {
+    "frontend": "dockerfile.v0",
+    "attrs": {
+      "build-arg:ENV_CFG": "$ENVIRONMENT",
+      "build-arg:GITHUB_REF": "$GITHUB_REF",
+      "build-arg:GITHUB_SHA": "$GITHUB_SHA",
+      "filename": "Dockerfile"
+    },
+    "sources": [
+      {
+        "type": "docker-image",
+        "ref": "docker.io/library/node:lts-alpine",
+        "pin": "sha256:a136ed7b0df71082cdb171f36d640ea3b392a5c70401c642326acee767b8c540"
+      }
+    ]
+  },
+  "containerimage.config.digest": "sha256:dec78b1bbfcc3f708a9ccda0c6012f5f6ac4d19a31b9c5a4b3c2fa734bcce012",
+  "containerimage.descriptor": {
+    "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+    "digest": "sha256:179cad49c1832c5d97f35aacd8d88ff25a7d84b93e199e6d89602b626caa3a4a",
+    "size": 2414
+  },
+  "containerimage.digest": "sha256:179cad49c1832c5d97f35aacd8d88ff25a7d84b93e199e6d89602b626caa3a4a",
+  "image.name": "longucodes/auth:latest"
+}
