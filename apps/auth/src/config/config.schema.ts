@@ -17,4 +17,16 @@ export const configSchema = Joi.object({
   CRYPTO__RENEW_LIFETIME: Joi.number()
     .optional()
     .default(1000 * 60 * 60 * 24 * 180),
+
+  EVENTS__AMQP__ENABLE: Joi.boolean().default(false),
+  EVENTS__AMQP__URL: Joi.string().when('EVENTS__AMQP__ENABLE', {
+    is: Joi.valid(true),
+    then: Joi.string().required(),
+  }),
+  EVENTS__AMQP__EXCHANGE: Joi.string().when('EVENTS__AMQP__ENABLE', {
+    is: Joi.valid(true),
+    then: Joi.string().required(),
+  }),
+  EVENTS__AMQP__ASSERT: Joi.boolean().optional(),
+  EVENTS__AMQP__PREFIX: Joi.string().optional(),
 });

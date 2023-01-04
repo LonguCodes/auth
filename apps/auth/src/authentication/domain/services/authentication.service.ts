@@ -14,6 +14,7 @@ import { DuplicateEmailError } from '../errors/duplicate-email.error';
 import { SessionService } from './session.service';
 import { InvalidTokenError } from '../errors/invalid-token.error';
 import { CryptoKeys, CryptoKeysToken } from '../../../crypto/crypto.module';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 
 interface TokenPayload {
   sub: string;
@@ -37,7 +38,8 @@ export class AuthenticationService {
     private readonly config: ConfigInterface,
     @Inject(CryptoKeysToken)
     private readonly cryptoKeys: CryptoKeys,
-    private readonly sessionService: SessionService
+    private readonly sessionService: SessionService,
+    private readonly emitter: EventEmitter2
   ) {}
 
   public async register(dto: CredentialsRequestDto) {
@@ -49,6 +51,12 @@ export class AuthenticationService {
       email: dto.email,
       password: passwordHash,
     });
+
+    this.emitter.emit('signup', {
+      name: 'signup',
+      payload: { id, email: dto.email },
+    });
+
     return this.loginUser(id);
   }
 
