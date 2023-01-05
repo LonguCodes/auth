@@ -38,8 +38,8 @@ jobs:
       - name: Install Dependencies
         run: yarn
 
-      - uses: nrwl/last-successful-commit-action@v1
-        id: last_successful_commit
+      - name: Last successful commit
+        uses: PatrikValkovic/last-successful-commit-action@v3.1
         with:
           branch: 'master'
           workflow_id: 'build-docker.yml'
