@@ -1,9 +1,4 @@
 {
-  "name": "@longucodes/auth-core",
-  "version": "0.0.1",
-  "dependencies": {
-    "@nestjs/common": "9",
-    "joi": "17",
-    "dotenv": "10"
-  }
+    "name": "@longucodes/auth-core",
+    "version": "0.0.2"
 }

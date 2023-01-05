@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { KeyRepository } from './infrastructure/repository/key.repository';
 import { AuthGuard, AuthMiddleware } from './application';
-import { ModuleOptionsFactory } from './auth.types';
+import { ModuleOptionsFactory } from '@longucodes/auth-core';
 
 @Module({
   exports: [AuthMiddleware, AuthGuard, AuthOptionsToken],

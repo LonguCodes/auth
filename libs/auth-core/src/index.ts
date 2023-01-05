@@ -1,2 +1,2 @@
-export * from './auth';
-export * from './event';
+export * from './events';
+export * from './auth.types';

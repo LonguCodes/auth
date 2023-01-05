@@ -3,10 +3,10 @@ import { RabbitModule } from '@longucodes/amqp';
 import { AmqpEventModuleConfigToken } from './tokens';
 import { AmqpEmitter } from './application/amqp.emitter';
 import { Value } from '../common/types';
-import { ModuleOptionsFactory } from '@auth/auth-core';
 import { EventModuleCore, EventModuleOptions } from './event.module.core';
 import { SocketIoEmitter } from './application/socket-io.emitter';
 import { EventEmitterModule } from '@nestjs/event-emitter';
+import { ModuleOptionsFactory } from '@longucodes/auth-core';
 
 @Module({
   imports: [EventEmitterModule.forRoot({ global: true, wildcard: true })],

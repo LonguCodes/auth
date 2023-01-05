@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { OnEvent } from '@nestjs/event-emitter';
-import { EventDto } from '../domain/event.dto';
+import { EventDto } from '../domain/dto/event.dto';
 import { RABBIT_CHANNEL_KEY } from '@longucodes/amqp/src/lib/tokens';
 import { Channel } from 'amqplib';
 import { AmqpEventModuleConfigToken } from '../tokens';

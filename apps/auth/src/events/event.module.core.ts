@@ -1,7 +1,7 @@
 import { AmqpEventModuleConfigToken, EventModuleConfigToken } from './tokens';
 import { RabbitModuleExchange } from '@longucodes/amqp/src/lib/rabbit.module';
-import { ModuleOptionsFactory } from '@auth/auth-core';
 import { Module } from '@nestjs/common';
+import { ModuleOptionsFactory } from '@longucodes/auth-core';
 
 export interface EventModuleOptions {
   amqp?: {

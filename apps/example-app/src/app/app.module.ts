@@ -1,11 +1,17 @@
 import { Module } from '@nestjs/common';
-import { AuthModule, AuthEventsModule } from '@auth/auth-core';
+import { AuthModule, AuthEventsModule } from '@longucodes/nest-auth';
 import { WelcomeModule } from '../welcome/welcome.module';
-import { ConfigToken } from '@longucodes/config';
+import { ConfigModule, ConfigToken } from '@longucodes/config';
 import { ConfigInterface } from '../config/config.interface';
+import { configSchema } from '../config/config.schema';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      loadEnv: true,
+      schema: configSchema,
+      global: true,
+    }),
     AuthModule.forRootAsync({
       global: true,
       inject: [ConfigToken],

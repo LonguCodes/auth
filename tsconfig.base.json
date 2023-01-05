@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@auth/auth-core": ["libs/auth-core/src/index.ts"]
+      "@longucodes/nest-auth": ["libs/nestjs-auth/src/index.ts"],
+      "@longucodes/auth-core": ["libs/auth-core/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

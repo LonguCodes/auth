@@ -1,21 +1,21 @@
 {
-  "name": "auth-core",
+  "name": "nestjs-auth",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/auth-core/src",
+  "sourceRoot": "libs/nestjs-auth/src",
   "projectType": "library",
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/auth-core/**/*.ts"]
+        "lintFilePatterns": ["libs/nestjs-auth/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": ["{workspaceRoot}/coverage/libs/nestjs-auth"],
       "options": {
-        "jestConfig": "libs/auth-core/jest.config.ts",
+        "jestConfig": "libs/nestjs-auth/jest.config.ts",
         "passWithNoTests": true
       }
     },
@@ -23,11 +23,11 @@
       "executor": "@nrwl/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/libs/auth-core",
-        "tsConfig": "libs/auth-core/tsconfig.lib.json",
-        "packageJson": "libs/auth-core/package.json",
-        "main": "libs/auth-core/src/index.ts",
-        "assets": ["libs/auth-core/*.md"]
+        "outputPath": "dist/libs/nestjs-auth",
+        "tsConfig": "libs/nestjs-auth/tsconfig.lib.json",
+        "packageJson": "libs/nestjs-auth/package.json",
+        "main": "libs/nestjs-auth/src/index.ts",
+        "assets": ["libs/nestjs-auth/*.md"]
       }
     },
     "publish": {

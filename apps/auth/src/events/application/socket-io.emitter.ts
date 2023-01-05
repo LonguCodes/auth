@@ -5,7 +5,7 @@ import {
 } from '@nestjs/websockets';
 import { Server } from 'socket.io';
 import { OnEvent } from '@nestjs/event-emitter';
-import { EventDto } from '../domain/event.dto';
+import { EventDto } from '../domain/dto/event.dto';
 import { Injectable } from '@nestjs/common';
 
 @WebSocketGateway({})

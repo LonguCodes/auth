@@ -1,0 +1,36 @@
+name: Develop - build and push image
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'apps/**/src/**'
+      - 'libs/**/src/**'
+      - '.github/workflows/build-lib.yaml'
+jobs:
+  setup-build-publish:
+    name: Setup, Build, Publish
+    runs-on: [ self-hosted ]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup NX workspace SHAs
+        uses: nrwl/nx-set-shas@v3
+        with:
+          main-branch-name: master
+
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Install Dependencies
+        run: yarn
+
+      - name: 'Build affected apps'
+        run: yarn nx affected --target=build-publish --base=${{ github.event.before }} --parallel

@@ -3,7 +3,7 @@ import { DynamicModule, FactoryProvider } from '@nestjs/common';
 import * as fs from 'fs/promises';
 import { ModuleInitError } from './module-init.error';
 import { BetterPromise } from '@longucodes/promise';
-import { ModuleOptionsFactory } from '@auth/auth-core';
+import { ModuleOptionsFactory } from '@longucodes/auth-core';
 
 export interface CryptoModuleOptions {
   privateKeyPath: string;
