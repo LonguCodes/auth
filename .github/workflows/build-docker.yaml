@@ -38,12 +38,5 @@ jobs:
       - name: Install Dependencies
         run: yarn
 
-      - name: Last successful commit
-        uses: PatrikValkovic/last-successful-commit-action@v3.1
-        with:
-          branch: 'master'
-          workflow_id: 'build-docker.yml'
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-
       - name: 'Build affected apps'
-        run: yarn nx affected --target=container --base=${{ steps.last_successful_commit.outputs.commit_hash }} --parallel
+        run: yarn nx affected --target=container  --parallel
