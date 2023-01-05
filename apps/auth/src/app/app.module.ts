@@ -7,6 +7,7 @@ import { entities, migrations } from '../config/entities.config';
 import { configSchema } from '../config/config.schema';
 import { CryptoModule } from '../crypto/crypto.module';
 import { AdminModule } from '../admin/admin.module';
+import { EventModule } from '../events/event.module';
 
 @Module({
   imports: [
@@ -31,6 +32,17 @@ import { AdminModule } from '../admin/admin.module';
       useFactory: (config: ConfigInterface) => config.crypto,
     }),
     AdminModule.forRoot(),
+    EventModule.forRootAsync({
+      inject: [ConfigToken],
+      useFactory: (config: ConfigInterface) => ({
+        amqp: config.events.amqp.enable
+          ? {
+              ...config.events.amqp,
+            }
+          : undefined,
+      }),
+      global: true,
+    }),
   ],
 })
 export class AppModule {}

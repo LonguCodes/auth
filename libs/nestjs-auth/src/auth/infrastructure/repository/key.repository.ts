@@ -1,5 +1,5 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
-import { AuthModuleOptions, OptionsToken } from '../../auth.options';
+import { AuthModuleOptions, AuthOptionsToken } from '../../auth.options';
 import { DateTime } from 'luxon';
 import axios, { AxiosInstance } from 'axios';
 
@@ -10,13 +10,12 @@ export class KeyRepository {
   private readonly axios: AxiosInstance;
 
   constructor(
-    @Inject(OptionsToken) private readonly config: AuthModuleOptions
+    @Inject(AuthOptionsToken) private readonly config: AuthModuleOptions
   ) {
-    this.axios = axios.create({ baseURL: this.config.core.url });
+    this.axios = axios.create({ baseURL: `http://${this.config.core.host}` });
   }
 
   public async getPublicKey() {
-
     if (
       this.publicKey &&
       DateTime.now().diff(this.lastFetchTime).shiftTo('hours').hours < 8

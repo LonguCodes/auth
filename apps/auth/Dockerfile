@@ -18,7 +18,7 @@ RUN yarn nx reset
 RUN NX_DAEMON=false yarn nx build auth -c production
 
 # Production image, copy all the files and run nest
-FROM docker.io/node:lts-alpine as runner
+FROM docker.io/node:16.16-alpine as runner
 RUN apk add --no-cache dumb-init
 ENV NODE_ENV production
 ENV PORT 3333

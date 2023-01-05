@@ -1,0 +1,53 @@
+{
+  "name": "nestjs-auth",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/nestjs-auth/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/nestjs-auth/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/nestjs-auth"],
+      "options": {
+        "jestConfig": "libs/nestjs-auth/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/nestjs-auth",
+        "tsConfig": "libs/nestjs-auth/tsconfig.lib.json",
+        "packageJson": "libs/nestjs-auth/package.json",
+        "main": "libs/nestjs-auth/src/index.ts",
+        "assets": ["libs/nestjs-auth/*.md"]
+      }
+    },
+    "publish": {
+      "executor": "@longucodes/nx-package-builder:build-and-publish",
+      "options": {
+        "publishCli": "yarn",
+        "publishArgs": [
+          {
+            "name": "access",
+            "value": "public"
+          },
+          {
+            "name": "no-git-tag-version"
+          },
+          {
+            "name": "no-commit-hooks"
+          }
+        ]
+      }
+    }
+  },
+  "tags": []
+}

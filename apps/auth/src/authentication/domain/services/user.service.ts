@@ -3,12 +3,16 @@ import { UserEntity } from '../../infrastructure/entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserMissingError } from '../errors/user-missing.error';
+import { ChangeRoleEvent, LoginEvent } from '@longucodes/auth-core';
+import { DateTime } from 'luxon';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(UserEntity)
-    private readonly userRepository: Repository<UserEntity>
+    private readonly userRepository: Repository<UserEntity>,
+    private readonly emitter: EventEmitter2
   ) {}
 
   public async getUserById(userId: string) {
@@ -23,9 +27,20 @@ export class UserService {
 
     const newRoles = [...new Set(...user.roles, role.toLowerCase())];
 
-    return this.userRepository.save({
+    await this.userRepository.save({
       ...user,
       roles: newRoles,
+    });
+
+    this.emitter.emit(ChangeRoleEvent.Name, {
+      name: ChangeRoleEvent.Name,
+      payload: {
+        id: user.id,
+        email: user.email,
+        date: DateTime.now().toJSDate(),
+        previousRoles: user.roles,
+        currentRoles: newRoles,
+      },
     });
   }
   public async removeUserRole(userId: string, role: string) {
@@ -36,9 +51,20 @@ export class UserService {
       (userRole) => userRole !== role.toLowerCase()
     );
 
-    return this.userRepository.save({
+    await this.userRepository.save({
       ...user,
       roles: newRoles,
+    });
+
+    this.emitter.emit(ChangeRoleEvent.Name, {
+      name: ChangeRoleEvent.Name,
+      payload: {
+        id: user.id,
+        email: user.email,
+        date: DateTime.now().toJSDate(),
+        previousRoles: user.roles,
+        currentRoles: newRoles,
+      },
     });
   }
 }

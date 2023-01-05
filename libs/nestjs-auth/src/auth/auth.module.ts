@@ -1,4 +1,4 @@
-import { AuthModuleOptions, OptionsToken } from './auth.options';
+import { AuthModuleOptions, AuthOptionsToken } from './auth.options';
 import {
   DynamicModule,
   Inject,
@@ -9,9 +9,12 @@ import {
 } from '@nestjs/common';
 import { KeyRepository } from './infrastructure/repository/key.repository';
 import { AuthGuard, AuthMiddleware } from './application';
-import { ModuleOptionsFactory } from './auth.types';
+import { ModuleOptionsFactory } from '@longucodes/auth-core';
 
-@Module({})
+@Module({
+  exports: [AuthMiddleware, AuthGuard, AuthOptionsToken],
+  providers: [KeyRepository, AuthMiddleware, AuthGuard],
+})
 export class AuthModule implements OnModuleInit, NestModule {
   public static forRootAsync(
     options: ModuleOptionsFactory<AuthModuleOptions>
@@ -19,19 +22,21 @@ export class AuthModule implements OnModuleInit, NestModule {
     return {
       module: AuthModule,
       global: options.global,
-      providers: [
-        { ...options, provide: OptionsToken },
-        KeyRepository,
-        AuthMiddleware,
-        AuthGuard,
-      ],
-      exports: [AuthMiddleware, AuthGuard],
+      providers: [{ ...options, provide: AuthOptionsToken }],
+    };
+  }
+
+  public static forRoot(options: AuthModuleOptions): DynamicModule {
+    return {
+      module: AuthModule,
+      global: options.global,
+      providers: [{ useValue: options, provide: AuthOptionsToken }],
     };
   }
 
   constructor(
     private readonly keyRepository: KeyRepository,
-    @Inject(OptionsToken) private readonly options: AuthModuleOptions
+    @Inject(AuthOptionsToken) private readonly options: AuthModuleOptions
   ) {}
 
   configure(consumer: MiddlewareConsumer): void {

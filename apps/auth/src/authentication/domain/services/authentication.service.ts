@@ -14,6 +14,8 @@ import { DuplicateEmailError } from '../errors/duplicate-email.error';
 import { SessionService } from './session.service';
 import { InvalidTokenError } from '../errors/invalid-token.error';
 import { CryptoKeys, CryptoKeysToken } from '../../../crypto/crypto.module';
+import { EventEmitter2 } from '@nestjs/event-emitter';
+import { LoginEvent, RegisterEvent } from '@longucodes/auth-core';
 
 interface TokenPayload {
   sub: string;
@@ -37,7 +39,8 @@ export class AuthenticationService {
     private readonly config: ConfigInterface,
     @Inject(CryptoKeysToken)
     private readonly cryptoKeys: CryptoKeys,
-    private readonly sessionService: SessionService
+    private readonly sessionService: SessionService,
+    private readonly emitter: EventEmitter2
   ) {}
 
   public async register(dto: CredentialsRequestDto) {
@@ -49,6 +52,12 @@ export class AuthenticationService {
       email: dto.email,
       password: passwordHash,
     });
+
+    this.emitter.emit(RegisterEvent.Name, {
+      name: RegisterEvent.Name,
+      payload: { id, email: dto.email, date: DateTime.now().toJSDate() },
+    });
+
     return this.loginUser(id);
   }
 
@@ -84,6 +93,15 @@ export class AuthenticationService {
         .toUnixInteger(),
       iat: DateTime.now().toUnixInteger(),
     };
+
+    this.emitter.emit(LoginEvent.Name, {
+      name: LoginEvent.Name,
+      payload: {
+        id: user.id,
+        email: user.email,
+        date: DateTime.now().toJSDate(),
+      },
+    });
 
     return {
       token: jwt.sign(authPayload, this.cryptoKeys.private, {

@@ -6,4 +6,4 @@ export interface CustomRequest<TUser> extends Request {
 export type ModuleOptionsFactory<T> = Omit<
   FactoryProvider<T extends { global: boolean } ? Omit<T, 'global'> : T>,
   'provide' | 'scope' | 'durable'
-> & { global: boolean };
+> & { global?: boolean };

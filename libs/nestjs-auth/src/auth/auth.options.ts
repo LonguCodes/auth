@@ -1,8 +1,8 @@
 export interface AuthModuleOptions {
   core: {
-    url: string;
+    host: string;
   };
   global?: boolean;
   registerMiddleware?: boolean;
 }
-export const OptionsToken = Symbol('auth-module-options');
+export const AuthOptionsToken = Symbol('auth-module-options');

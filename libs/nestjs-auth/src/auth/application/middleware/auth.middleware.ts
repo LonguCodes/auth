@@ -4,8 +4,8 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import * as jwt from 'jsonwebtoken';
-import { CustomRequest } from '../../auth.types';
 import { KeyRepository } from '../../infrastructure/repository/key.repository';
+import { CustomRequest } from '@longucodes/auth-core';
 
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
