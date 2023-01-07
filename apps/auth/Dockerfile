@@ -29,4 +29,5 @@ COPY --from=builder /usr/src/app/dist/apps/auth .
 RUN chown -R node:node .
 USER node
 EXPOSE 3333
+ENV DATABASE__MIGRATIONS_RUN true
 CMD ["dumb-init", "node", "main.js"]
