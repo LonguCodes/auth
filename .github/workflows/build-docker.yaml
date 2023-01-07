@@ -3,10 +3,7 @@ on:
   push:
     branches:
       - master
-    paths:
-      - 'apps/**/src/**'
-      - 'libs/**/src/**'
-      - '.github/workflows/build-docker.yaml'
+
 jobs:
   setup-build-publish:
     name: Setup, Build, Publish
