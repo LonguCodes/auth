@@ -7,6 +7,7 @@ import { UserEntity } from './infrastructure/entities/user.entity';
 import { AuthenticationMiddleware } from './application/middleware/authentication.middleware';
 import { SessionService } from './domain/services/session.service';
 import { SessionEntity } from './infrastructure/entities/session.entity';
+import {UserController} from "./application/controllers/user.controller";
 
 @Module({
   imports: [TypeOrmModule.forFeature([UserEntity, SessionEntity])],
@@ -16,7 +17,7 @@ import { SessionEntity } from './infrastructure/entities/session.entity';
     UserService,
     SessionService,
   ],
-  controllers: [AuthenticationController],
+  controllers: [AuthenticationController, UserController],
   exports: [AuthenticationMiddleware, AuthenticationService, UserService],
 })
 export class AuthenticationModule {}

@@ -15,6 +15,9 @@ export class UserEntity implements UserDto {
   @Column()
   password: string | undefined;
 
+  @Column()
+  validated: boolean;
+
   @Column({ name: 'google_id' })
   googleId: string | undefined;
 }
