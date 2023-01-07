@@ -1,9 +1,11 @@
 import * as crypto from 'crypto';
-import { DynamicModule, FactoryProvider } from '@nestjs/common';
+import { DynamicModule, FactoryProvider, Module } from '@nestjs/common';
 import * as fs from 'fs/promises';
-import { ModuleInitError } from './module-init.error';
+import { ModuleInitError } from './domain/error/module-init.error';
 import { BetterPromise } from '@longucodes/promise';
 import { ModuleOptionsFactory } from '@longucodes/auth-core';
+import { CryptoKeysToken } from './domain/token/keys.token';
+import { CryptoService } from './domain/service/crypto.service';
 
 export interface CryptoModuleOptions {
   privateKeyPath: string;
@@ -12,12 +14,11 @@ export interface CryptoModuleOptions {
 }
 
 const OptionsToken = Symbol('options-token');
-export const CryptoKeysToken = Symbol('crypto-keys-token');
-export interface CryptoKeys {
-  public: string;
-  private: string;
-}
 
+@Module({
+  providers: [CryptoService],
+  exports: [CryptoService],
+})
 export class CryptoModule {
   private static async readKeys(options: CryptoModuleOptions) {
     const privateKeyMissing = await fs.access(options.privateKeyPath).then(

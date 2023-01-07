@@ -1,4 +1,3 @@
-import * as jwt from 'jsonwebtoken';
 import { DateTime } from 'luxon';
 import { Inject, Injectable } from '@nestjs/common';
 import { UserDto } from '../dto/user.dto';
@@ -13,22 +12,14 @@ import * as bcrypt from 'bcryptjs';
 import { DuplicateEmailError } from '../errors/duplicate-email.error';
 import { SessionService } from './session.service';
 import { InvalidTokenError } from '../errors/invalid-token.error';
-import { CryptoKeys, CryptoKeysToken } from '../../../crypto/crypto.module';
 import { EventEmitter2 } from '@nestjs/event-emitter';
-import { LoginEvent, RegisterEvent } from '@longucodes/auth-core';
+import {
+  LoginEvent,
+  RegisterEvent,
+  TokenTypeEnum,
+} from '@longucodes/auth-core';
 
-interface TokenPayload {
-  sub: string;
-  iat: number;
-  email: string;
-  exp: number;
-  roles: string[];
-}
-interface RenewTokenPayload {
-  sessionId: string;
-  iat: number;
-  exp: number;
-}
+import { CryptoService } from '../../../crypto/domain/service/crypto.service';
 
 @Injectable()
 export class AuthenticationService {
@@ -37,8 +28,7 @@ export class AuthenticationService {
     private readonly userRepository: Repository<UserEntity>,
     @Inject(ConfigToken)
     private readonly config: ConfigInterface,
-    @Inject(CryptoKeysToken)
-    private readonly cryptoKeys: CryptoKeys,
+    private readonly cryptoService: CryptoService,
     private readonly sessionService: SessionService,
     private readonly emitter: EventEmitter2
   ) {}
@@ -48,14 +38,20 @@ export class AuthenticationService {
     if (user)
       throw new DuplicateEmailError('User with given email already exists');
     const passwordHash = await bcrypt.hash(dto.password, 4);
-    const { id } = await this.userRepository.save({
+    const { id, validated } = await this.userRepository.save({
       email: dto.email,
       password: passwordHash,
+      validated: !this.config.user.validation,
     });
 
     this.emitter.emit(RegisterEvent.Name, {
       name: RegisterEvent.Name,
-      payload: { id, email: dto.email, date: DateTime.now().toJSDate() },
+      payload: {
+        id,
+        email: dto.email,
+        date: DateTime.now().toJSDate(),
+        validated,
+      },
     });
 
     return this.loginUser(id);
@@ -76,67 +72,47 @@ export class AuthenticationService {
 
     const session = await this.sessionService.startSession(userId);
 
-    const authPayload: TokenPayload = {
-      sub: user.id,
-      iat: DateTime.now().toUnixInteger(),
-      exp: DateTime.now()
-        .plus({ millisecond: this.config.crypto.tokenLifetime })
-        .toUnixInteger(),
-      email: user.email,
-      roles: user.roles,
-    };
-
-    const renewPayload: RenewTokenPayload = {
-      sessionId: session.id,
-      exp: DateTime.now()
-        .plus({ millisecond: this.config.crypto.renewLifetime })
-        .toUnixInteger(),
-      iat: DateTime.now().toUnixInteger(),
-    };
-
     this.emitter.emit(LoginEvent.Name, {
       name: LoginEvent.Name,
       payload: {
         id: user.id,
         email: user.email,
         date: DateTime.now().toJSDate(),
+        validated: user.validated,
       },
     });
 
     return {
-      token: jwt.sign(authPayload, this.cryptoKeys.private, {
-        algorithm: 'RS512',
+      token: this.cryptoService.createToken({
+        sub: user.id,
+        exp: { millisecond: this.config.crypto.tokenLifetime },
+        email: user.email,
+        roles: user.roles,
+        validated: user.validated,
+        type: TokenTypeEnum.Auth,
       }),
-      renewToken: jwt.sign(renewPayload, this.cryptoKeys.private, {
-        algorithm: 'RS512',
+      renewToken: this.cryptoService.createToken({
+        sub: session.id,
+        exp: { millisecond: this.config.crypto.renewLifetime },
+        type: TokenTypeEnum.Renew,
       }),
     };
   }
 
   public async getUserFromToken(token: string): Promise<UserDto> {
-    try {
-      const payload: TokenPayload = jwt.verify(
-        token,
-        this.cryptoKeys.public
-      ) as TokenPayload;
-      const { sub, email } = payload;
-      return { id: sub, email };
-    } catch (e) {
-      return null;
-    }
+    const { sub, email } = this.cryptoService.validateToken(
+      token,
+      TokenTypeEnum.Auth
+    );
+    return { id: sub, email };
   }
   public async renewToken(renewToken: string) {
-    let payload: RenewTokenPayload = null;
-    try {
-      payload = jwt.verify(
-        renewToken,
-        this.cryptoKeys.public
-      ) as RenewTokenPayload;
-    } catch (e) {
-      throw new InvalidTokenError('Token is invalid');
-    }
+    const { sessionId } = this.cryptoService.validateToken(
+      renewToken,
+      TokenTypeEnum.Renew
+    );
 
-    const session = await this.sessionService.getSession(payload.sessionId);
+    const session = await this.sessionService.getSession(sessionId);
 
     if (!session) throw new InvalidTokenError('Token is invalid');
     return this.loginUser(session.userId);

@@ -23,4 +23,7 @@ export interface ConfigInterface {
       prefix?: string;
     };
   };
+  user: {
+    validation: boolean;
+  };
 }

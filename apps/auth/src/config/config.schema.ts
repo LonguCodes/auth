@@ -29,4 +29,6 @@ export const configSchema = Joi.object({
   }),
   EVENTS__AMQP__ASSERT: Joi.boolean().optional(),
   EVENTS__AMQP__PREFIX: Joi.string().optional(),
+
+  USER__VALIDATION: Joi.boolean().optional().default(false),
 });

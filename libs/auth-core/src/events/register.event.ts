@@ -4,5 +4,6 @@ export namespace RegisterEvent {
     id: string;
     email: string;
     date: Date;
+    validated: boolean;
   }
 }

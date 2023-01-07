@@ -1,9 +1,8 @@
-export namespace LoginEvent {
-  export const Name = 'login';
+export namespace ValidatedEvent {
+  export const Name = 'validated';
   export interface Payload {
     id: string;
     email: string;
     date: Date;
-    validated: true;
   }
 }

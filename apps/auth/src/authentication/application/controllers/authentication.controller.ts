@@ -13,11 +13,11 @@ import { InvalidCredentialsError } from '../../domain/errors/invalid-credentials
 import { DuplicateEmailError } from '../../domain/errors/duplicate-email.error';
 import { TokenRequestDto } from '../requests/token.request.dto';
 import { InvalidTokenError } from '../../domain/errors/invalid-token.error';
-import { CryptoKeys, CryptoKeysToken } from '../../../crypto/crypto.module';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ErrorResponseDto } from '../../../common/dto/error.response.dto';
 import { TokenResponseDto } from '../responses/token.response.dto';
 import { KeyResponseDto } from '../responses/key.response.dto';
+import {CryptoKeys, CryptoKeysToken} from "../../../crypto/domain/token/keys.token";
 
 @ApiTags('auth')
 @Controller('auth')
