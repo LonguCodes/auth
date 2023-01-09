@@ -1,0 +1,45 @@
+name: Develop - build and push image
+on:
+  push:
+    branches:
+      - master
+env:
+  ENVIRONMENT: develop
+
+jobs:
+  setup-build-publish:
+    name: Setup, Build, Publish
+    runs-on: [ self-hosted ]
+    if: contains(github.event.head_commit.message, '[skip ci]') == false
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GH_TOKEN }}
+
+      - name: Setup NX workspace SHAs
+        uses: nrwl/nx-set-shas@v3
+        with:
+          main-branch-name: master
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Install Dependencies
+        run: yarn
+
+      - name: Login to npm
+        run: echo "${{ secrets.NPM_AUTH }}" >> .npmrc
+
+      - name: 'Build affected apps'
+        run:  yarn nx affected --target=ci --parallel=1

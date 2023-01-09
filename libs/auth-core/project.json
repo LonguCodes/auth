@@ -47,6 +47,12 @@
           }
         ]
       }
+    },
+    "ci": {
+      "executor": "@longucodes/nx-package-builder:ci",
+      "options": {
+        "noCiMessage": "[skip ci]"
+      }
     }
   },
   "tags": []
