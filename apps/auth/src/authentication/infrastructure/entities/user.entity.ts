@@ -1,5 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { UserDto } from '../../domain/dto/user.dto';
+import {UserDto} from "@longucodes/auth-core";
 
 @Entity({ name: 'auth_user' })
 export class UserEntity implements UserDto {

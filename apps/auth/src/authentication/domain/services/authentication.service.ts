@@ -1,6 +1,5 @@
 import { DateTime } from 'luxon';
 import { Inject, Injectable } from '@nestjs/common';
-import { UserDto } from '../dto/user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from '../../infrastructure/entities/user.entity';
 import { Repository } from 'typeorm';
@@ -17,6 +16,7 @@ import {
   LoginEvent,
   RegisterEvent,
   TokenTypeEnum,
+  UserDto,
 } from '@longucodes/auth-core';
 
 import { CryptoService } from '../../../crypto/domain/service/crypto.service';
@@ -100,11 +100,11 @@ export class AuthenticationService {
   }
 
   public async getUserFromToken(token: string): Promise<UserDto> {
-    const { sub, email } = this.cryptoService.validateToken(
+    const { sub, email, roles } = this.cryptoService.validateToken(
       token,
       TokenTypeEnum.Auth
     );
-    return { id: sub, email };
+    return { id: sub, email, roles };
   }
   public async renewToken(renewToken: string) {
     const { sessionId } = this.cryptoService.validateToken(

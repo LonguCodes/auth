@@ -4,8 +4,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { AuthenticationService } from '../../domain/services/authentication.service';
-import { UserDto } from '../../domain/dto/user.dto';
-import {CustomRequest} from "@longucodes/auth-core";
+import {CustomRequest, UserDto} from "@longucodes/auth-core";
 
 @Injectable()
 export class AuthenticationMiddleware implements NestMiddleware {
