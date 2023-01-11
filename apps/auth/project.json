@@ -3,13 +3,21 @@
   "sourceRoot": "apps/auth/src",
   "projectType": "application",
   "targets": {
+    "ci": {
+      "executor": "@longucodes/nx-package-builder:ci",
+      "options": {
+        "noCiMessage": "[skip ci]",
+        "publishScript": "container"
+      }
+    },
     "container": {
       "executor": "@nx-tools/nx-container:build",
       "options": {
         "push": true,
         "pull": true,
         "tags": [
-          "longucodes/auth:latest"
+          "longucodes/auth:latest",
+          "longucodes/auth:$NX_PUBLISH_VERSION"
         ],
         "cache-from": [
           "longucodes/auth:latest"
@@ -17,7 +25,7 @@
         "build-args": [
           "GITHUB_SHA=$GITHUB_SHA",
           "GITHUB_REF=$GITHUB_REF",
-          "ENV_CFG=$ENVIRONMENT"
+          "NX_PUBLISH_VERSION=$NX_PUBLISH_VERSION"
         ],
         "platforms": ["linux/amd64"],
         "file": "apps/auth/Dockerfile"
