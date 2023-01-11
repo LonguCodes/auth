@@ -19,6 +19,7 @@ import { configSchema } from '../config/config.schema';
         registerMiddleware: true,
         core: {
           host: config.auth.coreHost,
+          apiKey: config.auth.apiKey,
         },
       }),
     }),

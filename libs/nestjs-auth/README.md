@@ -67,6 +67,34 @@ class MainModule {
 }
 ```
 
+#### Authentication
+
+Some actions, like listening for events, requires you to provide an **api key**. 
+You can find it printed in the logs of the auth service during first boot.
+
+```typescript
+import {Module} from "@nestjs/common";
+import {AuthModule} from "@longucodes/nest-auth";
+import {ConfigService} from '@nestjs/config'
+
+@Module({
+  imports: [
+    AuthModule.forRootAsync({
+      inject:[ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        core:{
+            host: configService.get('core.host'),
+            apiKey: configService.get('core.apiKey')
+        }
+      }) 
+    })
+  ]
+})
+class MainModule {
+
+}
+```
+
 #### Middleware
 
 The module exports an `AuthMiddleware` and `AuthGuard`. 
