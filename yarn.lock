@@ -720,10 +720,10 @@
     joi "17.7.0"
     tslib "^2.4.1"
 
-"@longucodes/nx-package-builder@^1.0.4":
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/@longucodes/nx-package-builder/-/nx-package-builder-1.0.4.tgz#0a41e0406af91dad3b4aed60c058eb6f43e97b55"
-  integrity sha512-zwdEEk8YyOoVOipuxQJ1mACxVGWCQlyyj5ref8yMFjcMhTHta3rOIsipqwb67NoJ1gAGR9x7luuIBtnL/B1XZA==
+"@longucodes/nx-package-builder@1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@longucodes/nx-package-builder/-/nx-package-builder-1.0.5.tgz#62f2afc9ab1414492fcf92a4e57f36efe8480e4f"
+  integrity sha512-QEIsNhFsnXf+XODJmkoHROgZvp31H3u8+IVCbq68h4WEhJtoXsR83PQBDVbJ/fDriuhykAdXd34Y7HfiSKzVew==
   dependencies:
     "@nrwl/devkit" "^15.4.4"
     chalk "4"
