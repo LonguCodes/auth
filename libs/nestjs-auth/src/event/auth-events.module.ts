@@ -5,7 +5,14 @@ import { AuthEventsOptionsToken } from './auth-events.tokens';
 import { ModuleOptionsFactory } from '@longucodes/auth-core';
 
 export interface AuthEventsModuleOptions {
+  /**
+   *  Prefix for all emitted events. If not provided, 'auth' will be used.
+   */
   prefix?: string;
+
+  /**
+   *  Should the module be marked as global.
+   */
   global?: boolean;
 }
 

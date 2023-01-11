@@ -1,10 +1,10 @@
 import { DynamicModule, Module } from '@nestjs/common';
 import { RabbitModule } from '@longucodes/amqp';
 import { AmqpEventModuleConfigToken } from './tokens';
-import { AmqpEmitter } from './application/amqp.emitter';
+import { AmqpEmitter } from './application/emitter/amqp.emitter';
 import { Value } from '../common/types';
 import { EventModuleCore, EventModuleOptions } from './event.module.core';
-import { SocketIoEmitter } from './application/socket-io.emitter';
+import { WebsocketEmitter } from './application/emitter/websocket.emitter';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { ModuleOptionsFactory } from '@longucodes/auth-core';
 
@@ -34,7 +34,7 @@ export class EventModule {
 
   private static getSocket() {
     return {
-      providers: [SocketIoEmitter],
+      providers: [WebsocketEmitter],
     };
   }
 
