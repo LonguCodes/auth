@@ -42,4 +42,4 @@ jobs:
         run: yarn
 
       - name: 'Build affected apps'
-        run: yarn nx affected --target=container  --parallel
+        run: yarn nx affected --target=container:ci  --parallel

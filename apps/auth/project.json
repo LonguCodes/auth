@@ -3,7 +3,7 @@
   "sourceRoot": "apps/auth/src",
   "projectType": "application",
   "targets": {
-    "ci": {
+    "container:ci": {
       "executor": "@longucodes/nx-package-builder:ci",
       "options": {
         "noCiMessage": "[skip ci]",
