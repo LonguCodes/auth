@@ -1,6 +1,6 @@
 {
     "name": "@longucodes/nest-auth",
-    "version": "0.0.16",
+    "version": "0.0.17",
     "dependencies": {
         "@nestjs/common": "9",
         "@nestjs/core": "9",
