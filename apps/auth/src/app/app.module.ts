@@ -8,6 +8,7 @@ import { configSchema } from '../config/config.schema';
 import { CryptoModule } from '../crypto/crypto.module';
 import { AdminModule } from '../admin/admin.module';
 import { EventModule } from '../events/event.module';
+import { UserModule } from '../user/user.module';
 
 @Module({
   imports: [
@@ -20,7 +21,6 @@ import { EventModule } from '../events/event.module';
         migrations,
       }),
     }),
-    AuthenticationModule,
     ConfigModule.forRoot({
       schema: configSchema,
       global: true,
@@ -31,7 +31,6 @@ import { EventModule } from '../events/event.module';
       inject: [ConfigToken],
       useFactory: (config: ConfigInterface) => config.crypto,
     }),
-    AdminModule.forRoot(),
     EventModule.forRootAsync({
       inject: [ConfigToken],
       useFactory: (config: ConfigInterface) => ({
@@ -43,6 +42,9 @@ import { EventModule } from '../events/event.module';
       }),
       global: true,
     }),
+    AuthenticationModule,
+    UserModule,
+    AdminModule,
   ],
 })
 export class AppModule {}

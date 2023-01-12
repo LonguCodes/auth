@@ -1,8 +1,5 @@
 import { DateTime } from 'luxon';
 import { Inject, Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { UserEntity } from '../../infrastructure/entities/user.entity';
-import { Repository } from 'typeorm';
 import { ConfigToken } from '@longucodes/config';
 import { ConfigInterface } from '../../../config/config.interface';
 import { CredentialsRequestDto } from '../../application/requests/credentials.request.dto';
@@ -20,25 +17,25 @@ import {
 } from '@longucodes/auth-core';
 
 import { CryptoService } from '../../../crypto/domain/service/crypto.service';
+import { UserService } from '../../../user/domain/services/user.service';
 
 @Injectable()
 export class AuthenticationService {
   constructor(
-    @InjectRepository(UserEntity)
-    private readonly userRepository: Repository<UserEntity>,
     @Inject(ConfigToken)
     private readonly config: ConfigInterface,
     private readonly cryptoService: CryptoService,
     private readonly sessionService: SessionService,
+    private readonly userService: UserService,
     private readonly emitter: EventEmitter2
   ) {}
 
   public async register(dto: CredentialsRequestDto) {
-    const user = await this.userRepository.findOneBy({ email: dto.email });
+    const user = await this.userService.getUserByEmail(dto.email);
     if (user)
       throw new DuplicateEmailError('User with given email already exists');
     const passwordHash = await bcrypt.hash(dto.password, 4);
-    const { id, validated } = await this.userRepository.save({
+    const { id, validated } = await this.userService.createUser({
       email: dto.email,
       password: passwordHash,
       validated: !this.config.user.validation,
@@ -58,7 +55,7 @@ export class AuthenticationService {
   }
 
   public async loginUsingCredentials(dto: CredentialsRequestDto) {
-    const user = await this.userRepository.findOneBy({ email: dto.email });
+    const user = await this.userService.getUserByEmail(dto.email);
     if (!user)
       throw new InvalidCredentialsError('Email or password does not match');
     const passwordMatch = await bcrypt.compare(dto.password, user.password);
@@ -68,7 +65,7 @@ export class AuthenticationService {
   }
 
   public async loginUser(userId: string) {
-    const user = await this.userRepository.findOneBy({ id: userId });
+    const user = await this.userService.getUserById(userId);
 
     const session = await this.sessionService.startSession(userId);
 

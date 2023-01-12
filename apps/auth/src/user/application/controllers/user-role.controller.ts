@@ -1,15 +1,13 @@
-import { Body, Controller, Post, SetMetadata } from '@nestjs/common';
-import { AdminGuard } from '../guard/admin.guard';
-import { UserRoleRequestDto } from '../request/user-role.request.dto';
-import { UserService } from '../../../authentication/domain/services/user.service';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { TokenResponseDto } from '../../../authentication/application/responses/token.response.dto';
+import { Body, Controller, Post } from '@nestjs/common';
+import { UserService } from '../../domain/services/user.service';
+import { ApiResponse } from '@nestjs/swagger';
 import { ErrorResponseDto } from '../../../common/dto/error.response.dto';
+import { UserRoleRequestDto } from '../requests/user-role.request.dto';
+import { Admin } from '../../../admin/application/decorator/admin.decorator';
 
-@Controller('admin')
-@SetMetadata(AdminGuard.ADMIN_METADATA_KEY, true)
-@ApiTags('admin')
-export class AdminController {
+@Controller('user/role')
+@Admin()
+export class UserRoleController {
   constructor(private readonly userService: UserService) {}
 
   @ApiResponse({
@@ -21,7 +19,7 @@ export class AdminController {
     description: 'Forbidden',
     type: ErrorResponseDto,
   })
-  @Post('role-add')
+  @Post('add')
   public async addRole(@Body() dto: UserRoleRequestDto) {
     await this.userService.addUserRole(dto.userId, dto.role);
   }
@@ -35,7 +33,7 @@ export class AdminController {
     description: 'Forbidden',
     type: ErrorResponseDto,
   })
-  @Post('role-remove')
+  @Post('remove')
   public async removeRole(@Body() dto: UserRoleRequestDto) {
     await this.userService.removeUserRole(dto.userId, dto.role);
   }

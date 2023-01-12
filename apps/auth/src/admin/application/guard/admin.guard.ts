@@ -27,7 +27,7 @@ export class AdminGuard implements CanActivate {
     );
     if (!isAdminOnly) return true;
     const request: Request = context.switchToHttp().getRequest();
-    const header = request.headers['Authorization'];
+    const header = request.headers['authorization'];
     return (
       header &&
       header.startsWith('Bearer') &&

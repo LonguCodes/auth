@@ -8,12 +8,12 @@ import {
   OnModuleInit,
 } from '@nestjs/common';
 import { KeyRepository } from './infrastructure/repository/key.repository';
-import { AuthGuard, AuthMiddleware } from './application';
+import { AuthGuard, AuthMiddleware, RoleGuard } from './application';
 import { ModuleOptionsFactory } from '@longucodes/auth-core';
 
 @Module({
-  exports: [AuthMiddleware, AuthGuard, AuthOptionsToken],
-  providers: [KeyRepository, AuthMiddleware, AuthGuard],
+  exports: [AuthMiddleware, AuthGuard, RoleGuard],
+  providers: [KeyRepository, AuthMiddleware, AuthGuard, RoleGuard],
 })
 export class AuthModule implements OnModuleInit, NestModule {
   public static forRootAsync(
@@ -23,6 +23,7 @@ export class AuthModule implements OnModuleInit, NestModule {
       module: AuthModule,
       global: options.global,
       providers: [{ ...options, provide: AuthOptionsToken }],
+      exports: [AuthOptionsToken],
     };
   }
 
@@ -31,6 +32,7 @@ export class AuthModule implements OnModuleInit, NestModule {
       module: AuthModule,
       global: options.global,
       providers: [{ useValue: options, provide: AuthOptionsToken }],
+      exports: [AuthOptionsToken],
     };
   }
 

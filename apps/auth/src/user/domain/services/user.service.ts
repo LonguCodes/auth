@@ -22,18 +22,21 @@ export class UserService {
     private readonly cryptoService: CryptoService
   ) {}
 
+  public async createUser(dto: Partial<UserEntity>) {
+    return this.userRepository.save(dto);
+  }
   public async getUserById(userId: string) {
-    return this.userRepository.findOne({
-      where: { id: userId },
-    });
+    return this.userRepository.findOneBy({ id: userId });
+  }
+  public async getUserByEmail(email: string) {
+    return this.userRepository.findOneBy({ email });
   }
 
   public async addUserRole(userId: string, role: string) {
     const user = await this.userRepository.findOneBy({ id: userId });
     if (!user) throw new UserMissingError('User does not exist');
 
-    const newRoles = [...new Set(...user.roles, role.toLowerCase())];
-
+    const newRoles = [...new Set([...user.roles, role.toLowerCase()])];
     await this.userRepository.save({
       ...user,
       roles: newRoles,
@@ -47,6 +50,8 @@ export class UserService {
         date: DateTime.now().toJSDate(),
         previousRoles: user.roles,
         currentRoles: newRoles,
+        changeType: 'add',
+        delta: [role],
       },
     });
   }
@@ -71,6 +76,8 @@ export class UserService {
         date: DateTime.now().toJSDate(),
         previousRoles: user.roles,
         currentRoles: newRoles,
+        changeType: 'remove',
+        delta: [role],
       },
     });
   }

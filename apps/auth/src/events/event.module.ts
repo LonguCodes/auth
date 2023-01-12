@@ -7,9 +7,17 @@ import { EventModuleCore, EventModuleOptions } from './event.module.core';
 import { WebsocketEmitter } from './application/emitter/websocket.emitter';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { ModuleOptionsFactory } from '@longucodes/auth-core';
+import { AdminModule } from '../admin/admin.module';
 
 @Module({
-  imports: [EventEmitterModule.forRoot({ global: true, wildcard: true })],
+  imports: [
+    EventEmitterModule.forRoot({
+      global: true,
+      wildcard: true,
+      ignoreErrors: true,
+    }),
+    AdminModule,
+  ],
 })
 export class EventModule {
   private static getAmqp(options: ModuleOptionsFactory<EventModuleOptions>) {

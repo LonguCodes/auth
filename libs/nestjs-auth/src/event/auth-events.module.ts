@@ -18,7 +18,7 @@ export interface AuthEventsModuleOptions {
 
 @Module({
   providers: [AuthEventsService],
-  imports: [EventEmitterModule.forRoot({ wildcard: true })],
+  imports: [EventEmitterModule.forRoot({ wildcard: true, ignoreErrors: true })],
 })
 export class AuthEventsModule {
   public static forRootAsync(

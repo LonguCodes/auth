@@ -17,7 +17,10 @@ import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ErrorResponseDto } from '../../../common/dto/error.response.dto';
 import { TokenResponseDto } from '../responses/token.response.dto';
 import { KeyResponseDto } from '../responses/key.response.dto';
-import {CryptoKeys, CryptoKeysToken} from "../../../crypto/domain/token/keys.token";
+import {
+  CryptoKeys,
+  CryptoKeysToken,
+} from '../../../crypto/domain/token/keys.token';
 
 @ApiTags('auth')
 @Controller('auth')

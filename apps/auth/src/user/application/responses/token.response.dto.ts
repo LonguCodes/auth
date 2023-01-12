@@ -5,8 +5,4 @@ export class TokenResponseDto {
   @ApiProperty()
   @Expose()
   token: string;
-
-  @ApiProperty()
-  @Expose()
-  renewToken: string;
 }
