@@ -6,5 +6,7 @@ export namespace ChangeRoleEvent {
     date: Date;
     previousRoles: string[];
     currentRoles: string[];
+    changeType: 'add' | 'remove';
+    delta: string[];
   }
 }

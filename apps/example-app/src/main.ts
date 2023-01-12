@@ -7,13 +7,16 @@ import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from './app/app.module';
-import { AuthGuard } from '@longucodes/nest-auth';
+import { AuthGuard, RoleGuard } from '@longucodes/nest-auth';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
-  app.useGlobalGuards(await app.resolve(AuthGuard));
+  app.useGlobalGuards(
+    await app.resolve(AuthGuard),
+    await app.resolve(RoleGuard)
+  );
   const port = process.env.PORT || 3003;
   await app.listen(port);
   Logger.log(
