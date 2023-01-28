@@ -1,8 +1,4 @@
 import { DynamicModule, Module } from '@nestjs/common';
-import { RabbitModule } from '@longucodes/amqp';
-import { AmqpEventModuleConfigToken } from './tokens';
-import { AmqpEmitter } from './application/emitter/amqp.emitter';
-import { Value } from '../common/types';
 import { EventModuleCore, EventModuleOptions } from './event.module.core';
 import { WebsocketEmitter } from './application/emitter/websocket.emitter';
 import { EventEmitterModule } from '@nestjs/event-emitter';
@@ -20,26 +16,6 @@ import { AdminModule } from '../admin/admin.module';
   ],
 })
 export class EventModule {
-  private static getAmqp(options: ModuleOptionsFactory<EventModuleOptions>) {
-    return {
-      providers: [AmqpEmitter],
-      imports: [
-        RabbitModule.forRootAsync({
-          imports: [EventModuleCore.forRootAsync(options)],
-          inject: [{ token: AmqpEventModuleConfigToken, optional: true }],
-          useFactory: (options?: Value<EventModuleOptions, 'amqp'>) => ({
-            url: options?.url ? `amqp://${options.url}` : undefined,
-            logLevel: options ? 'error' : 'debug',
-            assert: options?.assert,
-            exchanges: options
-              ? [{ type: 'topic', name: options?.exchange }]
-              : [],
-          }),
-        }),
-      ],
-    };
-  }
-
   private static getSocket() {
     return {
       providers: [WebsocketEmitter],
@@ -49,14 +25,13 @@ export class EventModule {
   public static forRootAsync(
     options: ModuleOptionsFactory<EventModuleOptions>
   ): DynamicModule {
-    const amqp = this.getAmqp(options);
     const socket = this.getSocket();
 
     return {
       module: EventModule,
       global: true,
-      imports: [EventModuleCore.forRootAsync(options), ...amqp.imports],
-      providers: [...amqp.providers, ...socket.providers],
+      imports: [EventModuleCore.forRootAsync(options)],
+      providers: [...socket.providers],
     };
   }
 }

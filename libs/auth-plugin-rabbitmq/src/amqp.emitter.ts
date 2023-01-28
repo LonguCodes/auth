@@ -1,19 +1,17 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { OnEvent } from '@nestjs/event-emitter';
-import { EventDto } from '../../domain/dto/event.dto';
 import { RABBIT_CHANNEL_KEY } from '@longucodes/amqp/src/lib/tokens';
 import { Channel } from 'amqplib';
-import { AmqpEventModuleConfigToken } from '../../tokens';
-
-import { Value } from '../../../common/types';
-import { EventModuleOptions } from '../../event.module.core';
+import { AuthRabbitPluginOptions } from './index';
+import { AuthRabbitPluginOptionsToken } from './amqp.tokens';
+import { EventDto } from '@longucodes/auth-core';
 
 @Injectable()
 export class AmqpEmitter {
   constructor(
     @Inject(RABBIT_CHANNEL_KEY) private readonly channel: Channel,
-    @Inject(AmqpEventModuleConfigToken)
-    private readonly config: Value<EventModuleOptions, 'amqp'>
+    @Inject(AuthRabbitPluginOptionsToken)
+    private readonly config: AuthRabbitPluginOptions
   ) {}
 
   @OnEvent('*')

@@ -15,8 +15,11 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@longucodes/nest-auth": ["libs/nestjs-auth/src/index.ts"],
-      "@longucodes/auth-core": ["libs/auth-core/src/index.ts"]
+      "@longucodes/auth-core": ["libs/auth-core/src/index.ts"],
+      "@longucodes/auth-plugin-rabbitmq": [
+        "libs/auth-plugin-rabbitmq/src/index.ts"
+      ],
+      "@longucodes/nest-auth": ["libs/nestjs-auth/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

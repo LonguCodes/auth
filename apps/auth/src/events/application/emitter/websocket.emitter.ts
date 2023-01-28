@@ -5,7 +5,7 @@ import {
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { OnEvent } from '@nestjs/event-emitter';
-import { EventDto } from '../../domain/dto/event.dto';
+import { EventDto } from '@longucodes/auth-core';
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { AdminSecretToken } from '../../../admin/admin.tokens';
 

@@ -9,6 +9,7 @@ import { CryptoModule } from '../crypto/crypto.module';
 import { AdminModule } from '../admin/admin.module';
 import { EventModule } from '../events/event.module';
 import { UserModule } from '../user/user.module';
+import { PluginModule } from '@longucodes/plugin-system-loader';
 
 @Module({
   imports: [
@@ -43,6 +44,7 @@ import { UserModule } from '../user/user.module';
       global: true,
     }),
     AuthenticationModule,
+    PluginModule.forRoot({ pluginsDefinitionFilePath: './plugins.json' }),
     UserModule,
     AdminModule,
   ],
