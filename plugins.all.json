@@ -1,0 +1,11 @@
+[
+  {
+    "name": "@longucodes/auth-plugin-rabbitmq",
+    "mode": "dynamic",
+    "config": {
+      "url":"localhost:5672",
+      "exchange": "auth",
+      "assert": "true"
+    }
+  }
+]

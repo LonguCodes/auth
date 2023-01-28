@@ -1,0 +1,35 @@
+{
+  "name": "auth-plugin-rabbitmq",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/auth-plugin-rabbitmq/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/auth-plugin-rabbitmq/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/auth-plugin-rabbitmq/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/auth-plugin-rabbitmq",
+        "tsConfig": "libs/auth-plugin-rabbitmq/tsconfig.lib.json",
+        "packageJson": "libs/auth-plugin-rabbitmq/package.json",
+        "main": "libs/auth-plugin-rabbitmq/src/index.ts",
+        "assets": ["libs/auth-plugin-rabbitmq/*.md"]
+      }
+    }
+  },
+  "tags": []
+}

@@ -95,6 +95,9 @@
         "command": "npx ts-node -P tsconfig.app.json -r tsconfig-paths/register $(which typeorm) migration:revert -d ormconfig.ts",
         "cwd": "apps/auth"
       }
+    },
+    "serve:plugin": {
+      "command": "plugins-cli -c 'yarn add' 'nx serve auth'"
     }
   },
   "tags": []

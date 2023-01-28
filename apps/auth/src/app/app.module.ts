@@ -9,6 +9,7 @@ import { CryptoModule } from '../crypto/crypto.module';
 import { AdminModule } from '../admin/admin.module';
 import { EventModule } from '../events/event.module';
 import { UserModule } from '../user/user.module';
+import { PluginModule } from '@longucodes/plugin-system-loader';
 
 @Module({
   imports: [
@@ -31,18 +32,9 @@ import { UserModule } from '../user/user.module';
       inject: [ConfigToken],
       useFactory: (config: ConfigInterface) => config.crypto,
     }),
-    EventModule.forRootAsync({
-      inject: [ConfigToken],
-      useFactory: (config: ConfigInterface) => ({
-        amqp: config.events.amqp.enable
-          ? {
-              ...config.events.amqp,
-            }
-          : undefined,
-      }),
-      global: true,
-    }),
+    EventModule,
     AuthenticationModule,
+    PluginModule.forRoot({ pluginsDefinitionFilePath: './plugins.json' }),
     UserModule,
     AdminModule,
   ],
