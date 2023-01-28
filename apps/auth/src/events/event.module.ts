@@ -1,8 +1,6 @@
-import { DynamicModule, Module } from '@nestjs/common';
-import { EventModuleCore, EventModuleOptions } from './event.module.core';
+import { Module } from '@nestjs/common';
 import { WebsocketEmitter } from './application/emitter/websocket.emitter';
 import { EventEmitterModule } from '@nestjs/event-emitter';
-import { ModuleOptionsFactory } from '@longucodes/auth-core';
 import { AdminModule } from '../admin/admin.module';
 
 @Module({
@@ -14,24 +12,6 @@ import { AdminModule } from '../admin/admin.module';
     }),
     AdminModule,
   ],
+  providers: [WebsocketEmitter],
 })
-export class EventModule {
-  private static getSocket() {
-    return {
-      providers: [WebsocketEmitter],
-    };
-  }
-
-  public static forRootAsync(
-    options: ModuleOptionsFactory<EventModuleOptions>
-  ): DynamicModule {
-    const socket = this.getSocket();
-
-    return {
-      module: EventModule,
-      global: true,
-      imports: [EventModuleCore.forRootAsync(options)],
-      providers: [...socket.providers],
-    };
-  }
-}
+export class EventModule {}

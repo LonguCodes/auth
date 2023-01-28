@@ -14,15 +14,6 @@ export interface ConfigInterface {
     tokenLifetime: number;
     renewLifetime: number;
   };
-  events: {
-    amqp?: {
-      enable: boolean;
-      url: string;
-      exchange: string;
-      assert?: boolean;
-      prefix?: string;
-    };
-  };
   user: {
     validation: boolean;
   };

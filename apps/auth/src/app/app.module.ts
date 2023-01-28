@@ -32,17 +32,7 @@ import { PluginModule } from '@longucodes/plugin-system-loader';
       inject: [ConfigToken],
       useFactory: (config: ConfigInterface) => config.crypto,
     }),
-    EventModule.forRootAsync({
-      inject: [ConfigToken],
-      useFactory: (config: ConfigInterface) => ({
-        amqp: config.events.amqp.enable
-          ? {
-              ...config.events.amqp,
-            }
-          : undefined,
-      }),
-      global: true,
-    }),
+    EventModule,
     AuthenticationModule,
     PluginModule.forRoot({ pluginsDefinitionFilePath: './plugins.json' }),
     UserModule,

@@ -97,7 +97,7 @@
       }
     },
     "serve:plugin": {
-      "command": "ts-node $(which plugins-cli) -c 'yarn add' 'nx serve auth'"
+      "command": "plugins-cli -c 'yarn add' 'nx serve auth'"
     }
   },
   "tags": []
