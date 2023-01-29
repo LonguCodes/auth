@@ -35,7 +35,7 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
-    "@longucodes/nx-package-builder": "1.0.11",
+    "@longucodes/nx-package-builder": "1.2",
     "@nestjs/schematics": "^9.0.0",
     "@nestjs/testing": "^9.0.0",
     "@nrwl/eslint-plugin-nx": "15.5.2",

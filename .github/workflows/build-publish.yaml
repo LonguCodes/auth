@@ -33,5 +33,19 @@ jobs:
       - name: Login to npm
         run: echo "${{ secrets.NPM_AUTH }}" >> .npmrc
 
+      - name: Compute actually changed files
+        run: |
+          git cherry-pick --abort || true
+          export NX_CURRENT_BRANCH=`git branch --show-current`
+          git checkout $NX_BASE
+          git cherry-pick `git log  $NX_BASE..$NX_HEAD --grep='\[skip ci\]' --invert-grep  --no-merges  --pretty="%H" | tr '\n' ' '` || true
+          NX_AFFECTED_FILES=`git diff $NX_BASE --name-only | sort | uniq | tr '\n' ','`
+          NX_AFFECTED_FILES=`echo "${NX_AFFECTED_FILES%?}"`
+          git cherry-pick --abort || true
+          git checkout $NX_CURRENT_BRANCH
+          echo "NX_HEAD=''" >> $GITHUB_ENV
+          echo "NX_AFFECTED_FILES=$NX_AFFECTED_FILES" >> $GITHUB_ENV
+          echo "Affected files: $NX_AFFECTED_FILES"
+
       - name: 'Build affected apps'
-        run:  yarn nx affected --target=ci --parallel=1
+        run:  yarn nx affected --target=ci --parallel=1 --files="$NX_AFFECTED_FILES" --base-commit="$NX_BASE"
