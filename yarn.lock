@@ -743,10 +743,10 @@
     simple-git "3.16.0"
     tslib "2.4.1"
 
-"@longucodes/plugin-system-cli@^0.1.4":
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/@longucodes/plugin-system-cli/-/plugin-system-cli-0.1.4.tgz#040a867d510e9e29d983bad3344c8830f47a6af7"
-  integrity sha512-tDGYHPBpFEpxVEcpNtDJwjvqCH5rY/+UJEQVzBkH1P9H3RDyMob8iukncql8mXkFGNph9UGXGwEq7LgV9VmCeg==
+"@longucodes/plugin-system-cli@^0.1.6":
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/@longucodes/plugin-system-cli/-/plugin-system-cli-0.1.6.tgz#adf0315ad73231fcf44c1e0a4fc3af7d3b66fb07"
+  integrity sha512-SVc7KyuToNXQIq7HLR01vwCl1lqlfCQ09nIjbb22oahjGiMd17yLleC+KXdkiPSGZiCFjYybxxT6xS1Uo7o0ZQ==
   dependencies:
     "@longucodes/common" "0.1.0"
     "@longucodes/plugin-system-core" "0.0.8"

@@ -30,4 +30,4 @@ RUN chown -R node:node .
 USER node
 EXPOSE 3333
 ENV DATABASE__MIGRATIONS_RUN true
-CMD ["dumb-init", "node", "main.js"]
+CMD dumb-init ./node_modules/.bin/plugins-cli "node main.js"
