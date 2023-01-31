@@ -7,7 +7,7 @@
   "dependencies": {
     "@longucodes/amqp": "0.0.14",
     "@longucodes/config": "^1.0.4",
-    "@longucodes/plugin-system-cli": "^0.1.4",
+    "@longucodes/plugin-system-cli": "^0.1.6",
     "@longucodes/plugin-system-loader": "^0.0.10",
     "@longucodes/promise": "1.0.5",
     "@nestjs/common": "^9.0.0",
