@@ -1,7 +1,7 @@
 export interface AuthModuleOptions {
   core: {
     /**
-     * Url pointing to the auth service
+     * Url pointing to the auth core
      */
     host: string;
 

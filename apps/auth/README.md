@@ -1,6 +1,6 @@
 ### Usage
 
-The service should be deployed alongside a backend service and can be directly exposed as auth api. To view all available endpoint, check `/api` endpoint for swagger documentation.
+The Auth Core should be deployed alongside a backend service and can be directly exposed as auth api. To view all available endpoint, check `/api` endpoint for swagger documentation.
 #### Docker
 
 For easy usage, there is a docker image available under `longucodes/auth`.
@@ -37,5 +37,5 @@ Public key can be fetched using `/api/auth/public` endpoint for verification of 
 
 #### Admin API
 
-For communication between your backend service and the auth service, administrative token is needed. It will be generated during the first start of the application and logged.
+For communication between your backend service and the Auth Core, administrative token is needed. It will be generated during the first start of the application and logged.
 If you want to use any of the administrative endpoints, send the token as a `Authorization: Bearer <TOKEN>` header.
