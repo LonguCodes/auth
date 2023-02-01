@@ -1,10 +1,10 @@
-import { IsJWT, IsOptional, IsString } from 'class-validator';
+import { IsOptional, IsString, IsUUID } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class PasswordChangeTokenGenerateRequestDto {
   @ApiProperty()
   @IsString()
-  @IsJWT()
+  @IsUUID(4)
   id: string;
 
   @ApiProperty()

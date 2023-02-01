@@ -6,6 +6,7 @@ import { UserMissingError } from '../errors/user-missing.error';
 import * as bcrypt from 'bcryptjs';
 
 import {
+  ChangePasswordEvent,
   ChangeRoleEvent,
   TokenTypeEnum,
   ValidatedEvent,
@@ -103,7 +104,7 @@ export class UserService {
     await this.userRepository.save({ ...user, validated: true });
 
     this.emitter.emit(ValidatedEvent.Name, {
-      name: ValidityState.name,
+      name: ValidatedEvent.Name,
       payload: {
         id: user.id,
         email: user.email,
@@ -152,8 +153,8 @@ export class UserService {
       password: await this.hashPassword(newPassword),
     });
 
-    this.emitter.emit(ValidatedEvent.Name, {
-      name: ValidityState.name,
+    this.emitter.emit(ChangePasswordEvent.Name, {
+      name: ChangePasswordEvent.Name,
       payload: {
         id: user.id,
         email: user.email,

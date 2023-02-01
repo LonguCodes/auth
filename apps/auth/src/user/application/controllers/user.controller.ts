@@ -17,6 +17,7 @@ import { PasswordChangeRequestDto } from '../requests/password-change.request.dt
 import { ApiResponse } from '@nestjs/swagger';
 import { ErrorResponseDto, TokenResponseDto } from '../../../common/dto';
 import { PasswordChangeTokenGenerateRequestDto } from '../requests/password-change-token-generate.request.dto';
+import { InvalidOldPasswordError } from '../../domain/errors/invalid-old-password.error';
 
 @Controller('user')
 export class UserController {
@@ -89,6 +90,7 @@ export class UserController {
       .generateChangePasswordToken(id, oldPassword)
       .wrap('token')
       .transform(TokenResponseDto)
+      .rethrowAs(InvalidOldPasswordError, BadRequestException)
       .rethrowAs(UserMissingError, NotFoundException);
   }
 
