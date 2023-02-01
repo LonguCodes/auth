@@ -34,10 +34,9 @@ export class AuthenticationService {
     const user = await this.userService.getUserByEmail(dto.email);
     if (user)
       throw new DuplicateEmailError('User with given email already exists');
-    const passwordHash = await bcrypt.hash(dto.password, 4);
     const { id, validated } = await this.userService.createUser({
       email: dto.email,
-      password: passwordHash,
+      password: dto.password,
       validated: !this.config.user.validation,
     });
 

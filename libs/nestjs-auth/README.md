@@ -157,7 +157,7 @@ This will skip the check of authentication.
 
 ### AuthEventsModule
 
-The modules allows you to listen for events happening in the auth service.
+The module allows you to listen for events happening in the auth service.
 To listen to an event, first import the module in your main module.
 
 ```typescript
@@ -213,3 +213,9 @@ export class ExampleService {
   }
 }
 ```
+### AdminModule
+
+This module is used for easy access to administrative actions, like role changes or special token generation.
+
+Currently, it exposes following classes: 
+- `AuthUserRepository` - role changes and validation/password change token generation
