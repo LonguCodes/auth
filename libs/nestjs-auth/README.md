@@ -69,8 +69,8 @@ class MainModule {
 
 #### Authentication
 
-Some actions, like listening for events, requires you to provide an **api key**. 
-You can find it printed in the logs of the auth service during first boot.
+Some actions, like listening for events, require you to provide an **api key**. 
+You can find it printed in the logs of the Auth Core during first boot.
 
 ```typescript
 import {Module} from "@nestjs/common";
@@ -157,7 +157,7 @@ This will skip the check of authentication.
 
 ### AuthEventsModule
 
-The module allows you to listen for events happening in the auth service.
+The module allows you to listen for events happening in the Auth Core.
 To listen to an event, first import the module in your main module.
 
 ```typescript

@@ -1,19 +1,20 @@
-# Auth microservice
+# Auth core
 
 ### Purpose 
 
 The application is a solution for unified authentication methods across many applications.
 It's based of asymmetric hashing of JWT tokens, with support for sessions and roles
 
-### Parts
+### Content
 
-- [Microservice README](./apps/auth/README.md)
-- [Nestjs library README](./libs/nestjs-auth/README.md)
+- [Auth Core](./apps/auth/README.md)
+- [Nestjs library](./libs/nestjs-auth/README.md)
+- [Recipes](./docs/recipes.md)
 - [Plugins](./docs/plugins.md)
 
 ### Development
 
-To run the service locally for development purposes, there are a couple steps you have to follow:
+To run the core locally for development purposes, there are a couple steps you have to follow:
 
 1. Install dependencies using `npm install` or `yarn`.
 2. Copy the file `.env.example` to `.env` in the `apps/auth` directory
