@@ -1,20 +1,19 @@
 {
-  "name": "@longucodes/nest-auth",
-  "version": "0.0.27",
-  "dependencies": {
-    "@longucodes/auth-core": "1.0.4",
-    "socket.io-client": "^4.5.4",
-    "rxjs": "^7.8.0",
-    "jsonwebtoken": "^9",
-    "joi": "17",
-    "dotenv": "10",
-    "luxon": "^3.2.0",
-    "axios": "^1.2.2"
-  },
-  "peerDependencies": {
-    "@nestjs/common": "9",
-    "@nestjs/core": "9",
-    "@nestjs/event-emitter": "^1.3.1"
-  }
+    "name": "@longucodes/nest-auth",
+    "version": "0.0.28",
+    "dependencies": {
+        "@longucodes/auth-core": "1.0.4",
+        "socket.io-client": "^4.5.4",
+        "rxjs": "^7.8.0",
+        "jsonwebtoken": "^9",
+        "joi": "17",
+        "dotenv": "10",
+        "luxon": "^3.2.0",
+        "axios": "^1.2.2"
+    },
+    "peerDependencies": {
+        "@nestjs/common": "9",
+        "@nestjs/core": "9",
+        "@nestjs/event-emitter": "^1.3.1"
+    }
 }
-
