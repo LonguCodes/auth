@@ -5,14 +5,14 @@ import {
 } from '@nestjs/common';
 import * as jwt from 'jsonwebtoken';
 import { KeyRepository } from '../../infrastructure/repository/key.repository';
-import { CustomRequest } from '@longucodes/auth-core';
+import { CustomRequest, UserDto } from '@longucodes/auth-core';
 
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
   constructor(private readonly keyRepository: KeyRepository) {}
 
   async use(
-    req: CustomRequest<any>,
+    req: CustomRequest<UserDto>,
     res: any,
     next: (error?: any) => void
   ): Promise<any> {
@@ -22,8 +22,13 @@ export class AuthMiddleware implements NestMiddleware {
     const token = header.substring(7);
     const publicKey = await this.keyRepository.getPublicKey();
     try {
-      const user = await jwt.verify(token, publicKey);
-      if (user) req.user = user;
+      const payload = (await jwt.verify(token, publicKey)) as jwt.JwtPayload;
+      if (payload)
+        req.user = {
+          id: payload.sub,
+          email: payload.email,
+          roles: payload.roles,
+        };
     } catch (e) {
       return next(new UnauthorizedException());
     }
