@@ -1,4 +1,4 @@
-import { DynamicModule, Logger, Module } from '@nestjs/common';
+import { Logger, Module } from '@nestjs/common';
 import * as fs from 'fs/promises';
 import * as crypto from 'crypto';
 import { AdminSecretToken } from './admin.tokens';

@@ -1,0 +1,59 @@
+{
+  "name": "auth-plugin-core",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/auth-plugin-core/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/auth-plugin-core/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/auth-plugin-core/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/auth-plugin-core",
+        "tsConfig": "libs/auth-plugin-core/tsconfig.lib.json",
+        "packageJson": "libs/auth-plugin-core/package.json",
+        "main": "libs/auth-plugin-core/src/index.ts",
+        "assets": ["libs/auth-plugin-core/*.md"]
+      }
+    },
+    "publish": {
+      "executor": "@longucodes/nx-package-builder:build-and-publish",
+      "options": {
+        "publishCli": "yarn",
+        "publishArgs": [
+          {
+            "name": "access",
+            "value": "public"
+          },
+          {
+            "name": "no-git-tag-version"
+          },
+          {
+            "name": "no-commit-hooks"
+          }
+        ]
+      }
+    },
+    "ci": {
+      "executor": "@longucodes/nx-package-builder:ci",
+      "options": {
+        "noCiMessage": "[skip ci]"
+      }
+    }
+  },
+  "tags": []
+}

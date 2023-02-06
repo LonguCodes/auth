@@ -10,6 +10,9 @@ import { AdminModule } from '../admin/admin.module';
 import { EventModule } from '../events/event.module';
 import { UserModule } from '../user/user.module';
 import { PluginModule } from '@longucodes/plugin-system-loader';
+import { PluginCoreModule } from '@longucodes/auth-plugin-core';
+import { PluginSupportServiceFactory } from '../plugin/domain/factory/plugin-support.service-factory';
+import { PluginSupportModule } from '../plugin/plugin-support.module';
 
 @Module({
   imports: [
@@ -34,9 +37,16 @@ import { PluginModule } from '@longucodes/plugin-system-loader';
     }),
     EventModule,
     AuthenticationModule,
+    AdminModule,
+    PluginCoreModule.forRootAsync({
+      inject: [PluginSupportServiceFactory],
+      imports: [PluginSupportModule],
+      useFactory: (factory: PluginSupportServiceFactory) => ({
+        serviceFactory: (name) => factory.create(name),
+      }),
+    }),
     PluginModule.forRoot({ pluginsDefinitionFilePath: './plugins.json' }),
     UserModule,
-    AdminModule,
   ],
 })
 export class AppModule {}
