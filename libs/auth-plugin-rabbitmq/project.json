@@ -23,11 +23,36 @@
       "executor": "@nrwl/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
+        "buildableProjectDepsInPackageJsonType": "dependencies",
         "outputPath": "dist/libs/auth-plugin-rabbitmq",
         "tsConfig": "libs/auth-plugin-rabbitmq/tsconfig.lib.json",
         "packageJson": "libs/auth-plugin-rabbitmq/package.json",
         "main": "libs/auth-plugin-rabbitmq/src/index.ts",
         "assets": ["libs/auth-plugin-rabbitmq/*.md"]
+      }
+    },
+    "publish": {
+      "executor": "@longucodes/nx-package-builder:build-and-publish",
+      "options": {
+        "publishCli": "yarn",
+        "publishArgs": [
+          {
+            "name": "access",
+            "value": "public"
+          },
+          {
+            "name": "no-git-tag-version"
+          },
+          {
+            "name": "no-commit-hooks"
+          }
+        ]
+      }
+    },
+    "ci": {
+      "executor": "@longucodes/nx-package-builder:ci",
+      "options": {
+        "noCiMessage": "[skip ci]"
       }
     }
   },

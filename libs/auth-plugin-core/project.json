@@ -23,6 +23,7 @@
       "executor": "@nrwl/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
+        "buildableProjectDepsInPackageJsonType": "dependencies",
         "outputPath": "dist/libs/auth-plugin-core",
         "tsConfig": "libs/auth-plugin-core/tsconfig.lib.json",
         "packageJson": "libs/auth-plugin-core/package.json",
