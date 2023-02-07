@@ -1,10 +1,10 @@
 {
-  "name": "@longucodes/auth-plugin-google",
-  "version": "0.0.1",
-  "peerDependencies": {
-    "@nestjs/common": "9.2.1",
-    "@nestjs/swagger": "6.1.4",
-    "@longucodes/auth-core": "1.0.4",
-    "@longucodes/auth-plugin-core": "0.1.0"
-  }
+    "name": "@longucodes/auth-plugin-google",
+    "version": "0.0.2",
+    "peerDependencies": {
+        "@nestjs/common": "9.2.1",
+        "@nestjs/swagger": "6.1.4",
+        "@longucodes/auth-core": "1.0.4",
+        "@longucodes/auth-plugin-core": "0.1.0"
+    }
 }
