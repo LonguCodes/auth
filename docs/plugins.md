@@ -61,6 +61,7 @@ Not all plugins are configurable, check documentation of used plugin.
 ### Ready to go plugins
 
 - [Rabbitmq](../libs/auth-plugin-rabbitmq/README.md) - Publishing events to rabbitmq
+- [Google](../libs/auth-plugin-google/README.md) - Social login with Google
 
 ### Development
 

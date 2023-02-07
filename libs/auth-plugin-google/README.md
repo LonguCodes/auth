@@ -1,11 +1,17 @@
 # auth-plugin-google
 
-This library was generated with [Nx](https://nx.dev).
+### Purpose
 
-## Running unit tests
+This plugin allows for easy google social login integration into your application through the Auth Core
 
-Run `nx test auth-plugin-google` to execute the unit tests via [Jest](https://jestjs.io).
+### Usage
 
-## Running lint
+To use this plugin, add it to the `plugins.json` configuration file to be automatically picked up by the plugin loader.
 
-Run `nx lint auth-plugin-google` to execute the lint via [ESLint](https://eslint.org/).
+#### Config
+
+The plugin requires 3 vales to be provided through the `config` property
+ - `redirectUri` - redirection url matching one used for google login
+ - `clientId` - client id from google cloud console
+ - `clientSecret` - client secret from google could console
+
