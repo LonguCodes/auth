@@ -23,6 +23,7 @@
       "executor": "@nrwl/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
+        "buildableProjectDepsInPackageJsonType": "dependencies",
         "outputPath": "dist/libs/nestjs-auth",
         "tsConfig": "libs/nestjs-auth/tsconfig.lib.json",
         "packageJson": "libs/nestjs-auth/package.json",

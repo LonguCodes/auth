@@ -1,5 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import {UserDto} from "@longucodes/auth-core";
+import { UserDto } from '@longucodes/auth-core';
 
 @Entity({ name: 'auth_user' })
 export class UserEntity implements UserDto {
@@ -18,6 +18,6 @@ export class UserEntity implements UserDto {
   @Column()
   validated: boolean;
 
-  @Column({ name: 'google_id' })
-  googleId: string | undefined;
+  @Column({ name: 'plugin_properties', type: 'jsonb' })
+  pluginProperties: Record<string, Record<string, any>>;
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { UserEntity } from '../../infrastructure/entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -16,6 +16,8 @@ import { EventEmitter2 } from '@nestjs/event-emitter';
 import { UserAlreadyValidatedError } from '../errors/user-already-validated.error';
 import { CryptoService } from '../../../crypto/domain/service/crypto.service';
 import { InvalidOldPasswordError } from '../errors/invalid-old-password.error';
+import { ConfigToken } from '@longucodes/config';
+import { ConfigInterface } from '../../../config/config.interface';
 
 @Injectable()
 export class UserService {
@@ -23,7 +25,9 @@ export class UserService {
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
     private readonly emitter: EventEmitter2,
-    private readonly cryptoService: CryptoService
+    private readonly cryptoService: CryptoService,
+    @Inject(ConfigToken)
+    private readonly config: ConfigInterface
   ) {}
 
   private async hashPassword(password: string) {
@@ -31,14 +35,24 @@ export class UserService {
   }
 
   public async createUser(dto: Partial<UserEntity>) {
-    const passwordHash = await this.hashPassword(dto.password);
-    return this.userRepository.save({ ...dto, password: passwordHash });
+    const passwordHash = dto.password
+      ? await this.hashPassword(dto.password)
+      : undefined;
+    return this.userRepository.save({
+      ...dto,
+      password: passwordHash,
+      validated: !this.config.user.validation || dto.validated,
+    });
   }
   public async getUserById(userId: string) {
     return this.userRepository.findOneBy({ id: userId });
   }
   public async getUserByEmail(email: string) {
     return this.userRepository.findOneBy({ email });
+  }
+
+  public async updateUser(dto: Partial<UserEntity> & { id: string }) {
+    return this.userRepository.save(dto);
   }
 
   public async addUserRole(userId: string, role: string) {

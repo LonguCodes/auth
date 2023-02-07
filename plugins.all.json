@@ -7,5 +7,14 @@
       "exchange": "auth",
       "assert": "true"
     }
+  },
+  {
+    "name": "@longucodes/auth-plugin-google",
+    "mode": "dynamic",
+    "config": {
+      "clientId": "REPLACE ME",
+      "clientSecret": "REPLACE ME",
+      "redirectUri": "REPLACE ME"
+    }
   }
 ]

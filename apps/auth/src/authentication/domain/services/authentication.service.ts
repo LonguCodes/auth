@@ -37,7 +37,7 @@ export class AuthenticationService {
     const { id, validated } = await this.userService.createUser({
       email: dto.email,
       password: dto.password,
-      validated: !this.config.user.validation,
+
     });
 
     this.emitter.emit(RegisterEvent.Name, {

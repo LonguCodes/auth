@@ -14,8 +14,8 @@ import { DuplicateEmailError } from '../../domain/errors/duplicate-email.error';
 import { TokenRequestDto } from '../requests/token.request.dto';
 import { InvalidTokenError } from '../../domain/errors/invalid-token.error';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { ErrorResponseDto } from '../../../common/dto/error.response.dto';
-import { TokenResponseDto } from '../responses/token.response.dto';
+import { ErrorResponseDto } from '../../../../../../libs/auth-core/src/dto/error.response.dto';
+import { AccessTokenResponseDto } from '../../../../../../libs/auth-core/src/dto/access-token.response.dto';
 import { KeyResponseDto } from '../responses/key.response.dto';
 import {
   CryptoKeys,
@@ -32,7 +32,7 @@ export class AuthenticationController {
 
   @ApiResponse({
     status: 200,
-    type: TokenResponseDto,
+    type: AccessTokenResponseDto,
     description: 'Logged in successfully',
   })
   @ApiResponse({
@@ -44,13 +44,13 @@ export class AuthenticationController {
   public async login(@Body() dto: CredentialsRequestDto) {
     return this.authorizationService
       .loginUsingCredentials(dto)
-      .transform(TokenResponseDto)
+      .transform(AccessTokenResponseDto)
       .rethrowAs(InvalidCredentialsError, UnauthorizedException);
   }
 
   @ApiResponse({
     status: 200,
-    type: TokenResponseDto,
+    type: AccessTokenResponseDto,
     description: 'Logged in successfully',
   })
   @ApiResponse({
@@ -62,14 +62,14 @@ export class AuthenticationController {
   public async register(@Body() dto: CredentialsRequestDto) {
     return this.authorizationService
       .register(dto)
-      .transform(TokenResponseDto)
+      .transform(AccessTokenResponseDto)
       .rethrowAs(InvalidCredentialsError, UnauthorizedException)
       .rethrowAs(DuplicateEmailError, BadRequestException);
   }
 
   @ApiResponse({
     status: 200,
-    type: TokenResponseDto,
+    type: AccessTokenResponseDto,
     description: 'Logged in successfully',
   })
   @ApiResponse({
@@ -81,7 +81,7 @@ export class AuthenticationController {
   public async renewSession(@Body() dto: TokenRequestDto) {
     return this.authorizationService
       .renewToken(dto.token)
-      .transform(TokenResponseDto)
+      .transform(AccessTokenResponseDto)
       .rethrowAs(InvalidTokenError, UnauthorizedException);
   }
 
