@@ -705,10 +705,18 @@
   resolved "https://registry.npmjs.org/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz"
   integrity sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==
 
-"@longucodes/amqp@0.0.14":
-  version "0.0.14"
-  resolved "https://registry.npmjs.org/@longucodes/amqp/-/amqp-0.0.14.tgz"
-  integrity sha512-UHfTxOj+UWr1UXG6LNEyKCwVNCC9zbS9TbbCpcFkg0K4bXN5zIOb2CjTY6rKS78+7mWutHpKWoxyIybuAwygaA==
+"@longucodes/amqp@0.0.23":
+  version "0.0.23"
+  resolved "https://registry.yarnpkg.com/@longucodes/amqp/-/amqp-0.0.23.tgz#bdb7083538375048f6c3389493680628c01ee645"
+  integrity sha512-nbonaZ+w2CmkS2VR5SWA7ucbz6JiQ9VpBhrlU8f79+CqT69yKAdsjU8JUtS+LwUB0Ms1A3d/rT5qJCVa1sfrXw==
+  dependencies:
+    "@longucodes/common" "0.2.0"
+    "@nestjs/common" "9.2.1"
+    "@nestjs/core" "9.2.1"
+    amqplib "0.10.3"
+    chalk "4.1.2"
+    tslib "2.4.1"
+    uuid "9.0.0"
 
 "@longucodes/common@0.1.0":
   version "0.1.0"
@@ -719,10 +727,19 @@
     chalk "4.1.2"
     tslib "2.4.1"
 
-"@longucodes/config@^1.0.4":
-  version "1.1.6"
-  resolved "https://registry.npmjs.org/@longucodes/config/-/config-1.1.6.tgz"
-  integrity sha512-iUdQokZ6Nm6tHDzLj1T3DOoL8sT8tp+DhU/nuN1gX9MdMUARylvKvbrPx5jZoy+CApKTEvx8YZxNV3zIe+3kZA==
+"@longucodes/common@0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@longucodes/common/-/common-0.2.0.tgz#489e6c610dc46a6719e7c43ded42924ae2eb45f6"
+  integrity sha512-bz1IPtAzrvLnx+RFvDx/qBun51VwRex2f9qm1RWk0tLQphCjq0JRf+ILbPcvtTmD6E2g31TiPjI3zXWVjQKisQ==
+  dependencies:
+    "@nestjs/common" "9.2.1"
+    chalk "4.1.2"
+    tslib "2.4.1"
+
+"@longucodes/config@^1.1.8":
+  version "1.1.8"
+  resolved "https://registry.yarnpkg.com/@longucodes/config/-/config-1.1.8.tgz#000e6783dae4b2caa59bae3c8c7c4de9c98799a8"
+  integrity sha512-tP6tmEaRR0HmPWtwV11OMx/V+9LiSSYfm9JRWonbZDE7ROtWQIjdtF9+ywaRMhWetvoGkXFCgORD39uKezOMig==
   dependencies:
     "@nestjs/common" "9.2.1"
     dotenv "10.0.0"
@@ -743,31 +760,31 @@
     simple-git "3.16.0"
     tslib "2.4.1"
 
-"@longucodes/plugin-system-cli@^0.1.6":
-  version "0.1.6"
-  resolved "https://registry.yarnpkg.com/@longucodes/plugin-system-cli/-/plugin-system-cli-0.1.6.tgz#adf0315ad73231fcf44c1e0a4fc3af7d3b66fb07"
-  integrity sha512-SVc7KyuToNXQIq7HLR01vwCl1lqlfCQ09nIjbb22oahjGiMd17yLleC+KXdkiPSGZiCFjYybxxT6xS1Uo7o0ZQ==
+"@longucodes/plugin-system-cli@^0.1.8":
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/@longucodes/plugin-system-cli/-/plugin-system-cli-0.1.8.tgz#1e71be626293c176908c4cd479746e289971e852"
+  integrity sha512-R4vnBK7sqcOnvu9tyBrtGXtV9MeMxWFTwT3J6ZCoLuaonUYzRhVVQtEXJsBwMEa7t2orKyTiG4V0wlCYJY+uaQ==
   dependencies:
-    "@longucodes/common" "0.1.0"
-    "@longucodes/plugin-system-core" "0.0.8"
+    "@longucodes/common" "0.2.0"
+    "@longucodes/plugin-system-core" "0.0.10"
     "@nestjs/common" "9.2.x"
     chalk "4.x"
     commander "10.0.0"
     tslib "2.4.1"
 
-"@longucodes/plugin-system-core@0.0.8":
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/@longucodes/plugin-system-core/-/plugin-system-core-0.0.8.tgz#dbe232f650a1e9abebe49e03ee35b67cfd550219"
-  integrity sha512-aXgePReITmX4HUK02WArtLVDT/qmi0EjtPwuWgGwRYqdNjrLAR/CgCSWNI7/IGwHdw4TLMvB0SDCAg6Xbo7Vjg==
+"@longucodes/plugin-system-core@0.0.10":
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/@longucodes/plugin-system-core/-/plugin-system-core-0.0.10.tgz#3c4499065c0ce2c0aede2dd4476ff14318e2fe87"
+  integrity sha512-OAiaWsJgrlIAi8lor4NoHno5Q1ipHenJdqm0T8K/eRerFF2T2f8V9wg8rnMpKGpjBs3tKS1y+R9y7GyTK39dKw==
   dependencies:
     tslib "2.4.1"
 
-"@longucodes/plugin-system-loader@^0.0.10":
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/@longucodes/plugin-system-loader/-/plugin-system-loader-0.0.10.tgz#d85fdf504a33636994c3eddc72c2a60a648fe508"
-  integrity sha512-BealNyBkTktjDpr7ybeH/yNILSShmaDOHW/aXrvL/M34J22NvUNtJBLff0CA2BEwnFxJ/Qu/4dP27eW6soOk5w==
+"@longucodes/plugin-system-loader@^0.0.13":
+  version "0.0.13"
+  resolved "https://registry.yarnpkg.com/@longucodes/plugin-system-loader/-/plugin-system-loader-0.0.13.tgz#90f756dac2d62b3c6f1bdc77b1d8266e1c22ddb0"
+  integrity sha512-xSetx9oT5rR7QVdImGFolVKZ7DC8fviqDdYOPWZ1LW3KCjxU4zwnqPhgE4p+TRJ8L7QJUz0L9IOMQmKaqTnqxw==
   dependencies:
-    "@longucodes/plugin-system-core" "0.0.8"
+    "@longucodes/plugin-system-core" "0.0.10"
     "@nestjs/common" "9.2.1"
     tslib "2.4.1"
 
@@ -789,9 +806,9 @@
     tslib "2.4.1"
     uuid "9.0.0"
 
-"@nestjs/core@^9.0.0":
+"@nestjs/core@9.2.1", "@nestjs/core@^9.0.0":
   version "9.2.1"
-  resolved "https://registry.npmjs.org/@nestjs/core/-/core-9.2.1.tgz"
+  resolved "https://registry.yarnpkg.com/@nestjs/core/-/core-9.2.1.tgz#598e51a421a0aaafc568c1a02499f7c1f9491caf"
   integrity sha512-a9GkXuu8uXgNgCVW+17iI8kLCltO+HwHpU2IhR+32JKnN2WEQ1YEWU4t3GJ2MNq44YkjIw9zrKvFkjJBlYrNbQ==
   dependencies:
     "@nuxtjs/opencollective" "0.3.2"
@@ -1888,9 +1905,9 @@ ajv@^6.10.0, ajv@^6.12.4, ajv@^6.12.5:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
-amqplib@^0.10.3:
+amqplib@0.10.3, amqplib@^0.10.3:
   version "0.10.3"
-  resolved "https://registry.npmjs.org/amqplib/-/amqplib-0.10.3.tgz"
+  resolved "https://registry.yarnpkg.com/amqplib/-/amqplib-0.10.3.tgz#e186a2f74521eb55ec54db6d25ae82c29c1f911a"
   integrity sha512-UHmuSa7n8vVW/a5HGh2nFPqAEr8+cD4dEZ6u9GjP91nHfr1a54RyAKyra7Sb5NH7NBKOUlyQSMXIp0qAixKexw==
   dependencies:
     "@acuminous/bitsyntax" "^0.1.2"
