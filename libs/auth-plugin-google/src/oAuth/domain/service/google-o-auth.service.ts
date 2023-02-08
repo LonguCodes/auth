@@ -1,5 +1,5 @@
 import { OAuth2Client } from 'google-auth-library';
-import { Inject, Injectable, Scope } from '@nestjs/common';
+import { Inject, Injectable, Logger, Scope } from '@nestjs/common';
 import {
   PluginCoreServiceInterface,
   PluginCoreServiceToken,
@@ -36,6 +36,7 @@ export class GoogleOAuthService {
       let userId = await this.pluginCoreService.getIdByEmail(email);
 
       if (!userId) {
+        Logger.debug(`User ${email} not found, creating`, 'Plugin|Google')
         userId = await this.pluginCoreService.createUser(email, true);
       }
 
@@ -43,6 +44,7 @@ export class GoogleOAuthService {
 
       return this.pluginCoreService.loginUser(userId);
     } catch (e) {
+      Logger.debug(`Login failed: ${e.message}`, 'Plugin|Google');
       throw new SocialLoginFailedError('Login failed');
     }
   }
