@@ -1,0 +1,12 @@
+dist
+tmp
+docs
+.vscode
+.idea
+.github
+.git
+plugins.all.json
+plugins.json
+yarn-error.log
+private.pem
+public.pem
