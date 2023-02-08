@@ -15,9 +15,10 @@ import { InvalidTokenError } from '../../../crypto/domain/error/invalid-token.er
 import { Admin } from '../../../admin/application/decorator/admin.decorator';
 import { PasswordChangeRequestDto } from '../requests/password-change.request.dto';
 import { ApiResponse } from '@nestjs/swagger';
-import { ErrorResponseDto, TokenResponseDto } from '../../../common/dto';
+import { TokenResponseDto } from '../../../common/dto';
 import { PasswordChangeTokenGenerateRequestDto } from '../requests/password-change-token-generate.request.dto';
 import { InvalidOldPasswordError } from '../../domain/errors/invalid-old-password.error';
+import { ErrorResponseDto } from '@longucodes/auth-core';
 
 @Controller('user')
 export class UserController {
