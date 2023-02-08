@@ -14,8 +14,10 @@ import { DuplicateEmailError } from '../../domain/errors/duplicate-email.error';
 import { TokenRequestDto } from '../requests/token.request.dto';
 import { InvalidTokenError } from '../../domain/errors/invalid-token.error';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { ErrorResponseDto } from '../../../../../../libs/auth-core/src/dto/error.response.dto';
-import { AccessTokenResponseDto } from '../../../../../../libs/auth-core/src/dto/access-token.response.dto';
+import {
+  ErrorResponseDto,
+  AccessTokenResponseDto,
+} from '@longucodes/auth-core';
 import { KeyResponseDto } from '../responses/key.response.dto';
 import {
   CryptoKeys,

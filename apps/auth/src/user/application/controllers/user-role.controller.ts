@@ -1,7 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { UserService } from '../../domain/services/user.service';
 import { ApiResponse } from '@nestjs/swagger';
-import { ErrorResponseDto } from '../../../../../../libs/auth-core/src/dto/error.response.dto';
+import { ErrorResponseDto } from '@longucodes/auth-core';
 import { UserRoleRequestDto } from '../requests/user-role.request.dto';
 import { Admin } from '../../../admin/application/decorator/admin.decorator';
 
