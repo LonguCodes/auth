@@ -20,7 +20,6 @@ RUN NX_DAEMON=false yarn nx build auth -c production
 # Production image, copy all the files and run nest
 FROM docker.io/node:16.16-alpine as runner
 RUN apk add --no-cache dumb-init
-RUN npm i -g yarn
 ENV NODE_ENV production
 ENV PORT 3333
 WORKDIR /usr/src/app
