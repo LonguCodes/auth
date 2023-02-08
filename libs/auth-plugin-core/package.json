@@ -1,9 +1,9 @@
 {
-  "name": "@longucodes/auth-plugin-core",
-  "version": "0.0.1",
-  "peerDependencies": {
-    "@longucodes/auth-core": "1.0.4",
-    "@nestjs/common": "9.2.1",
-    "@nestjs/swagger": "6.1.4"
-  }
+    "name": "@longucodes/auth-plugin-core",
+    "version": "0.0.2",
+    "peerDependencies": {
+        "@longucodes/auth-core": "1.0.4",
+        "@nestjs/common": "9.2.1",
+        "@nestjs/swagger": "6.1.4"
+    }
 }
