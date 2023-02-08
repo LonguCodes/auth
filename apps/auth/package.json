@@ -5,6 +5,7 @@
         "@longucodes/auth-core": "^1.0.5",
         "@longucodes/auth-plugin-core": "^0.0.2",
         "@longucodes/plugin-system-cli": "^0.1.8",
-        "@longucodes/plugin-system-core": "^0.0.10"
+        "@longucodes/plugin-system-core": "^0.0.10",
+      "pg": "^8.9.0"
     }
 }
