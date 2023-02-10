@@ -27,7 +27,6 @@ export class PluginSupportService implements PluginCoreServiceInterface {
 
   public async setProperty<T>(userId: string, propertyName: string, value: T) {
     const user = await this.userService.getUserById(userId);
-    console.log(user.pluginProperties);
     if (!user) throw new UserMissingError('User does not exist');
     if (!(this.pluginName in user.pluginProperties))
       user.pluginProperties[this.pluginName] = {};

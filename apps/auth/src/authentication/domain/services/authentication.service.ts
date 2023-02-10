@@ -37,7 +37,6 @@ export class AuthenticationService {
     const { id, validated } = await this.userService.createUser({
       email: dto.email,
       password: dto.password,
-
     });
 
     this.emitter.emit(RegisterEvent.Name, {
@@ -55,7 +54,7 @@ export class AuthenticationService {
 
   public async loginUsingCredentials(dto: CredentialsRequestDto) {
     const user = await this.userService.getUserByEmail(dto.email);
-    if (!user)
+    if (!user || !user.password)
       throw new InvalidCredentialsError('Email or password does not match');
     const passwordMatch = await bcrypt.compare(dto.password, user.password);
     if (!passwordMatch)
