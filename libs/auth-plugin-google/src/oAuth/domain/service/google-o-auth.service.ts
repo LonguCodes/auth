@@ -36,7 +36,7 @@ export class GoogleOAuthService {
       let userId = await this.pluginCoreService.getIdByEmail(email);
 
       if (!userId) {
-        Logger.debug(`User ${email} not found, creating`, 'Plugin|Google')
+        Logger.debug(`User ${email} not found, creating`, 'Plugin|Google');
         userId = await this.pluginCoreService.createUser(email, true);
       }
 
