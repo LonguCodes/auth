@@ -34,20 +34,12 @@ export class AuthenticationService {
     const user = await this.userService.getUserByEmail(dto.email);
     if (user)
       throw new DuplicateEmailError('User with given email already exists');
-    const { id, validated } = await this.userService.createUser({
+    const { id } = await this.userService.createUser({
       email: dto.email,
       password: dto.password,
     });
 
-    this.emitter.emit(RegisterEvent.Name, {
-      name: RegisterEvent.Name,
-      payload: {
-        id,
-        email: dto.email,
-        date: DateTime.now().toJSDate(),
-        validated,
-      },
-    });
+
 
     return this.loginUser(id);
   }
