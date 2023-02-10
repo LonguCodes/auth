@@ -8,6 +8,7 @@ import * as bcrypt from 'bcryptjs';
 import {
   ChangePasswordEvent,
   ChangeRoleEvent,
+  RegisterEvent,
   TokenTypeEnum,
   ValidatedEvent,
 } from '@longucodes/auth-core';
@@ -38,11 +39,21 @@ export class UserService {
     const passwordHash = dto.password
       ? await this.hashPassword(dto.password)
       : undefined;
-    return this.userRepository.save({
+    const user = await this.userRepository.save({
       ...dto,
       password: passwordHash,
       validated: !this.config.user.validation || dto.validated,
     });
+    this.emitter.emit(RegisterEvent.Name, {
+      name: RegisterEvent.Name,
+      payload: {
+        id: user.id,
+        email: dto.email,
+        date: DateTime.now().toJSDate(),
+        validated: user.validated,
+      },
+    });
+    return user;
   }
   public async getUserById(userId: string) {
     return this.userRepository.findOneBy({ id: userId });
