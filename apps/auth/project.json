@@ -27,7 +27,7 @@
           "GITHUB_REF=$GITHUB_REF",
           "NX_PUBLISH_VERSION=$NX_PUBLISH_VERSION"
         ],
-        "platforms": ["linux/amd64"],
+        "platforms": ["linux/amd64", "linux/arm64"],
         "file": "apps/auth/Dockerfile"
       }
     },
