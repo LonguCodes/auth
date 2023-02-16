@@ -19,4 +19,6 @@ export const configSchema = Joi.object({
     .default(1000 * 60 * 60 * 24 * 180),
 
   USER__VALIDATION: Joi.boolean().optional().default(false),
+
+  ADMIN__SECRET_FILE_PATH: Joi.string().optional().default('./secret'),
 });
