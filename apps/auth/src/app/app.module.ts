@@ -37,7 +37,11 @@ import { PluginSupportModule } from '../plugin/plugin-support.module';
     }),
     EventModule,
     AuthenticationModule,
-    AdminModule,
+    AdminModule.forRootAsync({
+      inject: [ConfigToken],
+      global: true,
+      useFactory: (config: ConfigInterface) => config.admin,
+    }),
     PluginCoreModule.forRootAsync({
       inject: [PluginSupportServiceFactory],
       imports: [PluginSupportModule],

@@ -17,4 +17,8 @@ export interface ConfigInterface {
   user: {
     validation: boolean;
   };
+
+  admin: {
+    secretFilePath: string;
+  };
 }
