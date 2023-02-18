@@ -34,8 +34,15 @@ export class PluginSupportService implements PluginCoreServiceInterface {
     await this.userService.updateUser(user);
   }
 
-  public async createUser(email: string, validated = false) {
-    const user = await this.userService.createUser({ email, validated });
+  public async createUser(
+    email: string,
+    validated = false,
+    additionalInformation = {}
+  ) {
+    const user = await this.userService.createUser(
+      { email, validated },
+      additionalInformation
+    );
     return user.id;
   }
 

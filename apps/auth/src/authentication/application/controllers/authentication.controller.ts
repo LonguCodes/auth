@@ -23,6 +23,7 @@ import {
   CryptoKeys,
   CryptoKeysToken,
 } from '../../../crypto/domain/token/keys.token';
+import { RegisterRequestDto } from '../requests/register.request.dto';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -61,7 +62,7 @@ export class AuthenticationController {
     type: ErrorResponseDto,
   })
   @Post('register')
-  public async register(@Body() dto: CredentialsRequestDto) {
+  public async register(@Body() dto: RegisterRequestDto) {
     return this.authorizationService
       .register(dto)
       .transform(AccessTokenResponseDto)
