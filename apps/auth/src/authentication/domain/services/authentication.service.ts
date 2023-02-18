@@ -18,6 +18,7 @@ import {
 
 import { CryptoService } from '../../../crypto/domain/service/crypto.service';
 import { UserService } from '../../../user/domain/services/user.service';
+import { RegisterRequestDto } from '../../application/requests/register.request.dto';
 
 @Injectable()
 export class AuthenticationService {
@@ -30,16 +31,17 @@ export class AuthenticationService {
     private readonly emitter: EventEmitter2
   ) {}
 
-  public async register(dto: CredentialsRequestDto) {
+  public async register(dto: RegisterRequestDto) {
     const user = await this.userService.getUserByEmail(dto.email);
     if (user)
       throw new DuplicateEmailError('User with given email already exists');
-    const { id } = await this.userService.createUser({
-      email: dto.email,
-      password: dto.password,
-    });
-
-
+    const { id } = await this.userService.createUser(
+      {
+        email: dto.email,
+        password: dto.password,
+      },
+      dto.additionalInformation
+    );
 
     return this.loginUser(id);
   }

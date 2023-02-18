@@ -8,6 +8,7 @@ export interface GoogleOAuthOptions {
   clientId: string;
   clientSecret: string;
   redirectUri: string;
+  extractInformation?: string[];
 }
 
 @Module({

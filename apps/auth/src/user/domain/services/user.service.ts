@@ -35,7 +35,10 @@ export class UserService {
     return bcrypt.hash(password, 4);
   }
 
-  public async createUser(dto: Partial<UserEntity>) {
+  public async createUser(
+    dto: Partial<UserEntity>,
+    additionalInformation?: Record<string, any>
+  ) {
     const passwordHash = dto.password
       ? await this.hashPassword(dto.password)
       : undefined;
@@ -51,6 +54,7 @@ export class UserService {
         email: dto.email,
         date: DateTime.now().toJSDate(),
         validated: user.validated,
+        additionalInformation,
       },
     });
     return user;

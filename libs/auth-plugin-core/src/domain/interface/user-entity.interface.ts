@@ -7,7 +7,11 @@ export interface PluginCoreServiceInterface {
 
   setProperty<T>(userId: string, propertyName: string, value: T): Promise<void>;
 
-  createUser(email: string, validated?: boolean): Promise<string>;
+  createUser(
+    email: string,
+    validated?: boolean,
+    additionalInformation?: Record<string, any>
+  ): Promise<string>;
 
   loginUser(userId: string): Promise<AccessTokenDto>;
 }
