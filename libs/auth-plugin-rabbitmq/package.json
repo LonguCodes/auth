@@ -1,6 +1,6 @@
 {
     "name": "@longucodes/auth-plugin-rabbitmq",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "peerDependencies": {
         "@longucodes/auth-core": "1.0.4",
         "@nestjs/swagger": "6.1.4",
