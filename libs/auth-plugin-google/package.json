@@ -1,6 +1,6 @@
 {
     "name": "@longucodes/auth-plugin-google",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "peerDependencies": {
         "@nestjs/common": "9.2.1",
         "@nestjs/swagger": "6.1.4",
