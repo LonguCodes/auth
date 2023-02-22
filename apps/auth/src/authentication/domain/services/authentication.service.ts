@@ -96,12 +96,12 @@ export class AuthenticationService {
     return { id: sub, email, roles };
   }
   public async renewToken(renewToken: string) {
-    const { sessionId } = this.cryptoService.validateToken(
+    const { sub } = this.cryptoService.validateToken(
       renewToken,
       TokenTypeEnum.Renew
     );
 
-    const session = await this.sessionService.getSession(sessionId);
+    const session = await this.sessionService.getSession(sub);
 
     if (!session) throw new InvalidTokenError('Token is invalid');
     return this.loginUser(session.userId);

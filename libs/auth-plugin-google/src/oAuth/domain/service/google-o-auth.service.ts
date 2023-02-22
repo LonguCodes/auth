@@ -36,13 +36,12 @@ export class GoogleOAuthService {
       const ticketPayload = ticket.getPayload();
       const { sub: googleId, email } = ticketPayload;
 
-      const additionalInformation = this.options.extractInformation
-        ?.filter((key) => key in ticketPayload)
-        .reduce((curr, key) => ({ ...curr, [key]: ticketPayload[key] }), {});
-
       let userId = await this.pluginCoreService.getIdByEmail(email);
 
       if (!userId) {
+        const additionalInformation = this.options.extractInformation
+          ?.filter((key) => key in ticketPayload)
+          .reduce((curr, key) => ({ ...curr, [key]: ticketPayload[key] }), {});
         Logger.debug(`User ${email} not found, creating`, 'Plugin|Google');
         userId = await this.pluginCoreService.createUser(
           email,
