@@ -18,6 +18,7 @@ export class SessionService {
   }
 
   public async getSession(sessionId: string) {
+    if (!sessionId) return null;
     return this.sessionRepository.findOneBy({ id: sessionId });
   }
 }
