@@ -1,6 +1,6 @@
 {
     "name": "auth",
-    "version": "1.5.1",
+    "version": "1.5.2",
     "dependencies": {
         "@longucodes/auth-core": "^1.0.5",
         "@longucodes/auth-plugin-core": "^0.0.2",
