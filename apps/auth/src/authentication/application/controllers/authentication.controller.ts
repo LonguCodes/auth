@@ -13,6 +13,7 @@ import { InvalidCredentialsError } from '../../domain/errors/invalid-credentials
 import { DuplicateEmailError } from '../../domain/errors/duplicate-email.error';
 import { TokenRequestDto } from '../requests/token.request.dto';
 import { InvalidTokenError } from '../../domain/errors/invalid-token.error';
+import { InvalidTokenError as CryptoInvalidTokenError } from '../../../crypto/domain/error/invalid-token.error';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import {
   ErrorResponseDto,
@@ -85,7 +86,8 @@ export class AuthenticationController {
     return this.authorizationService
       .renewToken(dto.token)
       .transform(AccessTokenResponseDto)
-      .rethrowAs(InvalidTokenError, UnauthorizedException);
+      .rethrowAs(InvalidTokenError, UnauthorizedException)
+      .rethrowAs(CryptoInvalidTokenError, UnauthorizedException);
   }
 
   @ApiResponse({
