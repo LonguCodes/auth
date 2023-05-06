@@ -30,7 +30,7 @@ export class GoogleOAuthController {
   })
   public async login(@Body() credentials: GoogleLoginRequestDto) {
     return this.googleAuthService
-      .login(credentials.code)
+      .login(credentials.code, credentials.redirectUri)
       .transform(AccessTokenResponseDto)
       .rethrowAs(SocialLoginFailedError, InternalServerErrorException);
   }

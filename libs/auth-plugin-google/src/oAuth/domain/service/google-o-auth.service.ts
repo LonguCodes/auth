@@ -17,15 +17,16 @@ export class GoogleOAuthService {
     private readonly options: GoogleOAuthOptions
   ) {}
 
-  public async login(code: string) {
+  public async login(code: string, redirectUri?: string) {
     try {
       const {
         tokens: { id_token: token },
       } = await new OAuth2Client({
         clientId: this.options.clientId,
         clientSecret: this.options.clientSecret,
-        redirectUri: this.options.redirectUri,
+        redirectUri: redirectUri ?? this.options.redirectUri,
       }).getToken(code);
+
       const ticket = await new OAuth2Client(
         this.options.clientId
       ).verifyIdToken({
