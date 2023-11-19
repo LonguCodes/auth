@@ -1,5 +1,6 @@
 {
   "name": "auth",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/auth/src",
   "projectType": "application",
   "targets": {
@@ -19,9 +20,7 @@
           "longucodes/auth:latest",
           "longucodes/auth:$NX_PUBLISH_VERSION"
         ],
-        "cache-from": [
-          "longucodes/auth:latest"
-        ],
+        "cache-from": ["longucodes/auth:latest"],
         "build-args": [
           "GITHUB_SHA=$GITHUB_SHA",
           "GITHUB_REF=$GITHUB_REF",
@@ -32,7 +31,7 @@
       }
     },
     "build": {
-      "executor": "@nrwl/node:webpack",
+      "executor": "@nx/webpack:webpack",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/auth",
@@ -45,7 +44,9 @@
             "replace": "apps/auth/src/config/entities.config.ts",
             "with": "apps/auth/src/config/entities.config.webpack.ts"
           }
-        ]
+        ],
+        "compiler": "tsc",
+        "target": "node"
       },
       "configurations": {
         "production": {
@@ -56,24 +57,23 @@
       }
     },
     "serve": {
-      "executor": "@nrwl/node:node",
+      "executor": "@nx/js:node",
       "options": {
         "buildTarget": "auth:build"
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["apps/auth/**/*.ts"]
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/apps/auth"],
       "options": {
-        "jestConfig": "apps/auth/jest.config.js",
-        "passWithNoTests": true
+        "jestConfig": "apps/auth/jest.config.js"
       }
     },
     "migration:create": {
