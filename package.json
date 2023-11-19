@@ -39,12 +39,12 @@
     "@longucodes/nx-package-builder": "1.2",
     "@nestjs/schematics": "^9.0.0",
     "@nestjs/testing": "^9.0.0",
-    "@nrwl/eslint-plugin-nx": "15.5.2",
-    "@nrwl/jest": "15.5.2",
-    "@nrwl/linter": "15.5.2",
-    "@nrwl/nest": "15.5.2",
-    "@nrwl/node": "15.5.2",
-    "@nrwl/workspace": "15.5.2",
+    "@nrwl/eslint-plugin-nx": "17.1.2",
+    "@nrwl/jest": "17.1.2",
+    "@nrwl/linter": "17.1.2",
+    "@nrwl/nest": "17.1.2",
+    "@nrwl/node": "17.1.2",
+    "@nrwl/workspace": "17.1.2",
     "@nx-tools/nx-container": "^4.0.2",
     "@types/amqplib": "^0.10.1",
     "@types/bcryptjs": "^2.4.2",
@@ -63,7 +63,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "jest": "28.1.1",
     "jest-environment-jsdom": "28.1.1",
-    "nx": "15.5.2",
+    "nx": "17.1.2",
     "prettier": "^2.8.1",
     "semver": "^7.3.8",
     "ts-jest": "28.0.5",
@@ -72,3 +72,4 @@
     "webpack": "^5.75.0"
   }
 }
+

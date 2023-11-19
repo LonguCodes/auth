@@ -42,3 +42,4 @@ private.pem
 public.pem
 secret
 plugins.json
+.nx/cache
