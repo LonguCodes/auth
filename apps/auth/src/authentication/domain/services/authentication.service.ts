@@ -48,7 +48,7 @@ export class AuthenticationService {
 
   public async loginUsingCredentials(dto: CredentialsRequestDto) {
     const user = await this.userService.getUserByEmail(dto.email);
-    if (!user || !user.password)
+    if (!user?.password)
       throw new InvalidCredentialsError('Email or password does not match');
     const passwordMatch = await bcrypt.compare(dto.password, user.password);
     if (!passwordMatch)
@@ -72,7 +72,7 @@ export class AuthenticationService {
     });
 
     return {
-      token: this.cryptoService.createToken({
+      accessToken: this.cryptoService.createToken({
         sub: user.id,
         exp: { millisecond: this.config.crypto.tokenLifetime },
         email: user.email,
@@ -80,7 +80,7 @@ export class AuthenticationService {
         validated: user.validated,
         type: TokenTypeEnum.Auth,
       }),
-      renewToken: this.cryptoService.createToken({
+      refreshToken: this.cryptoService.createToken({
         sub: session.id,
         exp: { millisecond: this.config.crypto.renewLifetime },
         type: TokenTypeEnum.Renew,
@@ -95,7 +95,7 @@ export class AuthenticationService {
     );
     return { id: sub, email, roles };
   }
-  public async renewToken(renewToken: string) {
+  public async refreshToken(renewToken: string) {
     const { sub } = this.cryptoService.validateToken(
       renewToken,
       TokenTypeEnum.Renew

@@ -84,7 +84,7 @@ export class AuthenticationController {
   @Post('renew')
   public async renewSession(@Body() dto: TokenRequestDto) {
     return this.authorizationService
-      .renewToken(dto.token)
+      .refreshToken(dto.token)
       .transform(AccessTokenResponseDto)
       .rethrowAs(InvalidTokenError, UnauthorizedException)
       .rethrowAs(CryptoInvalidTokenError, UnauthorizedException);
