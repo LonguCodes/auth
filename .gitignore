@@ -44,3 +44,4 @@ secret
 plugins.json
 
 .nx/cache
+.nx-container
