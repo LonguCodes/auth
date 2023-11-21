@@ -1,6 +1,6 @@
 {
     "name": "@longucodes/auth-plugin-core",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "peerDependencies": {
         "@longucodes/auth-core": "1.0.4",
         "@nestjs/common": "9.2.1",
