@@ -1,14 +1,14 @@
 # Install dependencies only when needed
-FROM docker.io/node:lts-alpine as deps
+FROM node:20.9-alpine as deps
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
-RUN apk add --no-cache libc6-compat python3 make g++
+RUN apk add --no-cache make gcc g++ libc6-compat bash python3
 WORKDIR /usr/src/app
 COPY package.json .
 COPY yarn.lock .
 RUN  yarn config set network-timeout 600000 -g
 RUN yarn --only=production
 
-FROM docker.io/node:lts-alpine as builder
+FROM node:20.9-alpine as builder
 
 WORKDIR /usr/src/app
 COPY . .
@@ -18,8 +18,8 @@ RUN yarn nx reset
 RUN NX_DAEMON=false yarn nx build auth -c production
 
 # Production image, copy all the files and run nest
-FROM docker.io/node:16.16-alpine as runner
-RUN apk add --no-cache dumb-init
+FROM node:20.9-alpine as runner
+RUN apk add --no-cache dumb-init g++ make py3-pip
 ENV NODE_ENV production
 ENV PORT 3333
 WORKDIR /usr/src/app
