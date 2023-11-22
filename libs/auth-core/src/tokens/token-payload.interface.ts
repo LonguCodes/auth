@@ -1,9 +1,9 @@
-import { TokenTypeEnum } from './token-type.enum';
+import { TokenType } from './token.type';
 import { DurationLike } from 'luxon';
 
 export interface TokenPayloadInterface {
   sub: string;
-  type: TokenTypeEnum;
+  type: TokenType;
   exp: DurationLike;
   [key: string]: any;
 }

@@ -29,7 +29,7 @@ export class AuthEventsService {
         payload
       );
     });
-    client.on('disconnect', (reason, description) => {
+    client.on('disconnect', (reason) => {
       switch (reason) {
         case 'io server disconnect':
           Logger.error(

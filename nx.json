@@ -3,7 +3,7 @@
   "affected": {
     "defaultBase": "master"
   },
-  "defaultProject": "auth",
+  "defaultProject": "auth-service",
   "targetDefaults": {
     "build": {
       "dependsOn": ["^build"],
