@@ -1,12 +1,12 @@
 import { DynamicModule, Module, Scope } from '@nestjs/common';
-import { PluginCoreServiceInterface } from './domain/interface/user-entity.interface';
+import { PluginCoreServiceInterface } from './domain/interface/plugin-core-service.interface';
 import { PluginCoreModuleOptionsToken, PluginNameToken } from './tokens';
-import { ModuleOptionsFactoryWithImports } from '@longucodes/auth-core';
 import { PluginCoreServiceToken } from './tokens.public';
 import {
   PluginCoreInternalModule,
   PluginCoreInternalModuleRootOptions,
 } from './plugin-core-internal.module';
+import { ModuleOptionsFactory } from '@longucodes/common';
 
 export interface PluginCoreModuleRootOptions {
   global: boolean;
@@ -20,7 +20,7 @@ export interface PluginCoreModulePluginOptions {
 @Module({})
 export class PluginCoreModule {
   public static forRootAsync(
-    options: ModuleOptionsFactoryWithImports<PluginCoreModuleRootOptions>
+    options: ModuleOptionsFactory<PluginCoreModuleRootOptions>
   ): DynamicModule {
     return {
       module: PluginCoreModule,

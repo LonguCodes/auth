@@ -1,0 +1,105 @@
+{
+  "name": "auth-service",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/auth-service/src",
+  "projectType": "application",
+  "targets": {
+    "container:ci": {
+      "executor": "@longucodes/nx-package-builder:ci",
+      "options": {
+        "noCiMessage": "[skip ci]",
+        "publishScript": "container"
+      }
+    },
+    "container": {
+      "executor": "@nx-tools/nx-container:build",
+      "options": {
+        "push": true,
+        "pull": true,
+        "tags": [
+          "longucodes/auth:latest",
+          "longucodes/auth:$NX_PUBLISH_VERSION"
+        ],
+        "cache-from": ["longucodes/auth:latest"],
+        "build-args": [
+          "GITHUB_SHA=$GITHUB_SHA",
+          "GITHUB_REF=$GITHUB_REF",
+          "NX_PUBLISH_VERSION=$NX_PUBLISH_VERSION"
+        ],
+        "platforms": ["linux/amd64", "linux/arm64"],
+        "file": "apps/auth-service/Dockerfile"
+      }
+    },
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/auth-service",
+        "main": "apps/auth-service/src/main.ts",
+        "tsConfig": "apps/auth-service/tsconfig.app.json",
+        "assets": [],
+        "generatePackageJson": true,
+        "fileReplacements": [
+          {
+            "replace": "apps/auth-service/src/config/entities.config.ts",
+            "with": "apps/auth-service/src/config/entities.config.webpack.ts"
+          }
+        ],
+        "compiler": "tsc",
+        "target": "node"
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "options": {
+        "buildTarget": "auth-service:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/auth-service/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/apps/auth-service"],
+      "options": {
+        "jestConfig": "apps/auth-service/jest.config.js"
+      }
+    },
+    "migration:create": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx ts-node -P tsconfig.app.json -r tsconfig-paths/register $(which typeorm) migration:create",
+        "cwd": "apps/auth-service"
+      }
+    },
+    "migration:run": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx ts-node -P tsconfig.app.json -r tsconfig-paths/register $(which typeorm) migration:run -d ormconfig.ts",
+        "cwd": "apps/auth-service"
+      }
+    },
+    "migration:revert": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx ts-node -P tsconfig.app.json -r tsconfig-paths/register $(which typeorm) migration:revert -d ormconfig.ts",
+        "cwd": "apps/auth-service"
+      }
+    },
+    "serve:plugin": {
+      "command": "plugins-cli -c 'yarn add' 'nx serve auth'"
+    }
+  },
+  "tags": []
+}

@@ -16,5 +16,16 @@
       "clientSecret": "REPLACE ME",
       "redirectUri": "REPLACE ME"
     }
+  },
+  {
+    "name": "@longucodes/auth-engine-typeorm",
+    "mode": "dynamic",
+    "config": {
+      "database": "REPLACE ME",
+      "host": "REPLACE ME",
+      "port": "REPLACE ME",
+      "username": "REPLACE ME",
+      "password": "REPLACE ME"
+    }
   }
 ]

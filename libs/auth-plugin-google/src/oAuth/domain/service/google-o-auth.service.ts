@@ -51,7 +51,7 @@ export class GoogleOAuthService {
         );
       }
 
-      await this.pluginCoreService.setProperty(userId, 'googleId', googleId);
+      await this.pluginCoreService.setClaim(userId, 'googleId', googleId);
 
       return this.pluginCoreService.loginUser(userId);
     } catch (e) {

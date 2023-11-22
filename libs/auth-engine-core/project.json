@@ -1,0 +1,41 @@
+{
+  "name": "auth-engine-core",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/auth-engine-core/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/auth-engine-core",
+        "tsConfig": "libs/auth-engine-core/tsconfig.lib.json",
+        "packageJson": "libs/auth-engine-core/package.json",
+        "main": "libs/auth-engine-core/src/index.ts",
+        "assets": ["libs/auth-engine-core/*.md"]
+      }
+    },
+    "publish": {
+      "command": "node tools/scripts/publish.mjs auth-engine-core {args.ver} {args.tag}",
+      "dependsOn": ["build"]
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/auth-engine-core/**/*.ts",
+          "libs/auth-engine-core/package.json"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/auth-engine-core/jest.config.ts"
+      }
+    }
+  },
+  "tags": []
+}

@@ -13,9 +13,9 @@ export class AuthMiddleware implements NestMiddleware {
 
   async use(
     req: CustomRequest<UserDto>,
-    res: any,
-    next: (error?: any) => void
-  ): Promise<any> {
+    res: unknown,
+    next: (error?: unknown) => void
+  ): Promise<unknown> {
     const header = req.headers['authorization'];
     if (!header || header.length === 0) return next();
     if (!header.startsWith('Bearer')) return next(new UnauthorizedException());
@@ -27,7 +27,6 @@ export class AuthMiddleware implements NestMiddleware {
         req.user = {
           id: payload.sub,
           email: payload.email,
-          roles: payload.roles,
         };
     } catch (e) {
       return next(new UnauthorizedException());

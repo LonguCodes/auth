@@ -2,7 +2,7 @@ import { DynamicModule, Module } from '@nestjs/common';
 import { AuthEventsService } from './auth-events.service';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { AuthEventsOptionsToken } from './auth-events.tokens';
-import { ModuleOptionsFactory } from '@longucodes/auth-core';
+import { ModuleOptionsFactory } from '@longucodes/common';
 
 export interface AuthEventsModuleOptions {
   /**

@@ -16,6 +16,10 @@
     "baseUrl": ".",
     "paths": {
       "@longucodes/auth-core": ["libs/auth-core/src/index.ts"],
+      "@longucodes/auth-engine-core": ["libs/auth-engine-core/src/index.ts"],
+      "@longucodes/auth-engine-typeorm": [
+        "libs/auth-engine-typeorm/src/index.ts"
+      ],
       "@longucodes/auth-plugin-core": ["libs/auth-plugin-core/src/index.ts"],
       "@longucodes/auth-plugin-google": [
         "libs/auth-plugin-google/src/index.ts"

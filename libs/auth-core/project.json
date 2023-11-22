@@ -43,6 +43,9 @@
           },
           {
             "name": "no-commit-hooks"
+          },
+          {
+            "name": "non-interactive"
           }
         ]
       }
